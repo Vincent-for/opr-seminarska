@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NalogaOPR_Vozila", "NalogaOPR_Vozila\NalogaOPR_Vozila.csproj", "{7BB141AB-7E9F-4D28-99A3-504C38D7CF1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BB141AB-7E9F-4D28-99A3-504C38D7CF1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BB141AB-7E9F-4D28-99A3-504C38D7CF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BB141AB-7E9F-4D28-99A3-504C38D7CF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BB141AB-7E9F-4D28-99A3-504C38D7CF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62BA30B0-AE08-4FC5-B7A4-719868E8D51C}
+	EndGlobalSection
+EndGlobal
