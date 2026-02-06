@@ -35,7 +35,7 @@ namespace NalogaOPR_Vozila
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var a = Convert.ToString(comboBox1.SelectedItem);
+            string a = Convert.ToString(comboBox1.SelectedItem);
             if (!string.IsNullOrEmpty(a))
             {
                 comboBox2.Enabled = true;
@@ -57,7 +57,7 @@ namespace NalogaOPR_Vozila
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var znamka = Convert.ToString(comboBox2.SelectedItem);
+            string znamka = Convert.ToString(comboBox2.SelectedItem);
             if (!string.IsNullOrEmpty(znamka))
             {
                 comboBox3.Enabled = true;
@@ -77,8 +77,8 @@ namespace NalogaOPR_Vozila
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var znamka = Convert.ToString(comboBox2.SelectedItem);
-            var kategorija = Convert.ToString(comboBox3.SelectedItem);
+            string znamka = Convert.ToString(comboBox2.SelectedItem);
+            string  kategorija = Convert.ToString(comboBox3.SelectedItem);
 
             if (!string.IsNullOrEmpty(znamka) && !string.IsNullOrEmpty(kategorija))
             {
@@ -98,9 +98,9 @@ namespace NalogaOPR_Vozila
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var znamka = Convert.ToString(comboBox2.SelectedItem);
-            var kategorija = Convert.ToString(comboBox3.SelectedItem);
-            var imeModela = Convert.ToString(comboBox4.SelectedItem);
+            string znamka = Convert.ToString(comboBox2.SelectedItem);
+            string kategorija = Convert.ToString(comboBox3.SelectedItem);
+            string imeModela = Convert.ToString(comboBox4.SelectedItem);
 
             if (!string.IsNullOrEmpty(imeModela))
             {
