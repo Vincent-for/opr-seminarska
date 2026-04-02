@@ -1,52 +1,19 @@
 using System;
 using System.Linq;
 
-namespace NalogaOPR_Vozila
+namespace VozilaLibrary
 {
-    public interface IPerformance
-    {
-        int GetPerformanceBoost();
-    }
-
-    public abstract class AutoPart
-    {
-        public abstract int Weight { get; }
-        public abstract int AffectHP(Model m);
-    }
-
-    public class EnginePart : AutoPart
-    {
-        private readonly int _boost;
-        public EnginePart(int boost)
-        {
-            _boost = boost;
-        }
-        public override int Weight
-        {
-            get
-            {
-                return 150;
-            }
-        }
-        public override int AffectHP(Model m)
-        {
-            return _boost;
-        }
-    }
-
     public class Vozilo
     {
         public const string DefaultTip = "Avto";
         private string _tip;
         public string Tip
         {
-            get
-            {
-                return _tip;
-            }
+            get { return _tip; }
             protected set
             {
-                _tip = value ?? throw new ArgumentNullException(nameof(value));
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                _tip = value;
             }
         }
         public Vozilo(string tip)
@@ -60,13 +27,11 @@ namespace NalogaOPR_Vozila
         private string _imeZnamke;
         public string ImeZnamke
         {
-            get
-            {
-                return _imeZnamke;
-            }
+            get { return _imeZnamke; }
             protected set
             {
-                _imeZnamke = value ?? throw new ArgumentNullException(nameof(value));
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                _imeZnamke = value;
             }
         }
         public Znamka(string tip, string imeZnamke) : base(tip)
@@ -80,13 +45,11 @@ namespace NalogaOPR_Vozila
         private string _imeKategorije;
         public string ImeKategorije
         {
-            get
-            {
-                return _imeKategorije;
-            }
+            get { return _imeKategorije; }
             protected set
             {
-                _imeKategorije = value ?? throw new ArgumentNullException(nameof(value));
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                _imeKategorije = value;
             }
         }
         public Kategorija(string tip, string imeZnamke, string imeKategorije) : base(tip, imeZnamke)
@@ -95,33 +58,25 @@ namespace NalogaOPR_Vozila
         }
     }
 
-    public class Model : Kategorija, IEquatable<Model>, IPerformance
+    public class Model : Kategorija, IEquatable<Model>
     {
         private string _imeModela;
         private int _hp;
         public string ImeModela
         {
-            get
-            {
-                return _imeModela;
-            }
+            get { return _imeModela; }
             protected set
             {
-                _imeModela = value ?? throw new ArgumentNullException(nameof(value));
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                _imeModela = value;
             }
         }
         public int HP
         {
-            get
-            {
-                return _hp;
-            }
+            get { return _hp; }
             protected set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
                 _hp = value;
             }
         }
@@ -137,49 +92,22 @@ namespace NalogaOPR_Vozila
         {
             return "Model: " + ImeModela + " | Znamka: " + ImeZnamke + " | Kategorija: " + ImeKategorije + " | HP: " + HP;
         }
-        public void ApplyPart(AutoPart part)
-        {
-            int boost = part.AffectHP(this);
-            HP = HP + boost;
-        }
-        public int GetPerformanceBoost()
-        {
-            return HP;
-        }
         public static bool operator >(Model a, Model b)
         {
-            if (ReferenceEquals(a, null))
-            {
-                return false;
-            }
-            if (ReferenceEquals(b, null))
-            {
-                return true;
-            }
+            if (ReferenceEquals(a, null)) return false;
+            if (ReferenceEquals(b, null)) return true;
             return a.HP > b.HP;
         }
         public static bool operator <(Model a, Model b)
         {
-            if (ReferenceEquals(a, null))
-            {
-                return !ReferenceEquals(b, null);
-            }
-            if (ReferenceEquals(b, null))
-            {
-                return false;
-            }
+            if (ReferenceEquals(a, null)) return !ReferenceEquals(b, null);
+            if (ReferenceEquals(b, null)) return false;
             return a.HP < b.HP;
         }
         public static bool operator ==(Model a, Model b)
         {
-            if (ReferenceEquals(a, b))
-            {
-                return true;
-            }
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
-            {
-                return false;
-            }
+            if (ReferenceEquals(a, b)) return true;
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return false;
             return a.Equals(b);
         }
         public static bool operator !=(Model a, Model b)
@@ -188,11 +116,10 @@ namespace NalogaOPR_Vozila
         }
         public bool Equals(Model other)
         {
-            if (ReferenceEquals(other, null))
-            {
-                return false;
-            }
-            return string.Equals(ImeModela, other.ImeModela, StringComparison.OrdinalIgnoreCase) && string.Equals(ImeZnamke, other.ImeZnamke, StringComparison.OrdinalIgnoreCase) && string.Equals(ImeKategorije, other.ImeKategorije, StringComparison.OrdinalIgnoreCase);
+            if (ReferenceEquals(other, null)) return false;
+            return string.Equals(ImeModela, other.ImeModela, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(ImeZnamke, other.ImeZnamke, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(ImeKategorije, other.ImeKategorije, StringComparison.OrdinalIgnoreCase);
         }
         public override bool Equals(object obj)
         {
@@ -211,39 +138,6 @@ namespace NalogaOPR_Vozila
         }
     }
 
-    public class ModelCollection
-    {
-        private readonly Model[] _items;
-        public ModelCollection(Model[] items)
-        {
-            _items = items;
-        }
-        public int Count
-        {
-            get
-            {
-                if (_items == null)
-                {
-                    return 0;
-                }
-                return _items.Length;
-            }
-        }
-        public Model this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= _items.Length)
-                {
-                    return null;
-                }
-                return _items[index];
-            }
-        }
-    }
-
-    public delegate void ModelSelectedHandler(Model model);
-
     public static class SkupinaAvtov
     {
         private static readonly string[] _znamke = { "BMW", "Audi", "Volkswagen" };
@@ -261,7 +155,6 @@ namespace NalogaOPR_Vozila
             new Model(Vozilo.DefaultTip, "Volkswagen", "Limo", "Passat", 174)
         };
         private static readonly string[] EmptyStrings = new string[0];
-        public static event ModelSelectedHandler ModelSelected;
         public static string[] Vozila()
         {
             return new[] { Vozilo.DefaultTip };
@@ -276,31 +169,12 @@ namespace NalogaOPR_Vozila
         }
         public static string[] Modeli(string znamka, string kategorija)
         {
-            if (string.IsNullOrEmpty(znamka) || string.IsNullOrEmpty(kategorija))
-            {
-                return EmptyStrings;
-            }
+            if (string.IsNullOrEmpty(znamka) || string.IsNullOrEmpty(kategorija)) return EmptyStrings;
             return AllModels.Where(m => string.Equals(m.ImeZnamke, znamka, StringComparison.OrdinalIgnoreCase) && string.Equals(m.ImeKategorije, kategorija, StringComparison.OrdinalIgnoreCase)).Select(m => m.ImeModela).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
         }
         public static Model Model(string imeModela, string znamka, string kategorija)
         {
             return AllModels.FirstOrDefault(m => string.Equals(m.ImeModela, imeModela, StringComparison.OrdinalIgnoreCase) && string.Equals(m.ImeZnamke, znamka, StringComparison.OrdinalIgnoreCase) && string.Equals(m.ImeKategorije, kategorija, StringComparison.OrdinalIgnoreCase));
-        }
-        public static Model UstvariModel(string znamka, string kategorija, string imeModela, int hp)
-        {
-            return new Model(Vozilo.DefaultTip, znamka, kategorija, imeModela, hp);
-        }
-        public static ModelCollection GetAllModels()
-        {
-            return new ModelCollection(AllModels);
-        }
-        public static void RaiseModelSelected(Model model)
-        {
-            ModelSelectedHandler handler = ModelSelected;
-            if (handler != null)
-            {
-                handler(model);
-            }
         }
     }
 }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NalogaOPR_Vozila
@@ -22,12 +16,19 @@ namespace NalogaOPR_Vozila
             groupBox2.Visible = false;
             comboBox5.Visible = false;
             comboBox6.Visible = false;
+            SkupinaAvtov.ModelSelected += SkupinaAvtov_ModelSelected;
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            SkupinaAvtov.ModelSelected -= SkupinaAvtov_ModelSelected;
+            base.OnFormClosed(e);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
-            foreach (var tip in SkupinaAvtov.Vozila())
+            foreach (string tip in SkupinaAvtov.Vozila())
                 comboBox1.Items.Add(tip);
 
             label1.Text = string.Empty;
@@ -40,7 +41,7 @@ namespace NalogaOPR_Vozila
             {
                 comboBox2.Enabled = true;
                 comboBox2.Items.Clear();
-                foreach (var z in SkupinaAvtov.Znamke())
+                foreach (string z in SkupinaAvtov.Znamke())
                     comboBox2.Items.Add(z);
 
                 comboBox3.Items.Clear();
@@ -62,7 +63,7 @@ namespace NalogaOPR_Vozila
             {
                 comboBox3.Enabled = true;
                 comboBox3.Items.Clear();
-                foreach (var k in SkupinaAvtov.Kategorije())
+                foreach (string k in SkupinaAvtov.Kategorije())
                     comboBox3.Items.Add(k);
 
                 comboBox4.Items.Clear();
@@ -78,14 +79,13 @@ namespace NalogaOPR_Vozila
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             string znamka = Convert.ToString(comboBox2.SelectedItem);
-            string  kategorija = Convert.ToString(comboBox3.SelectedItem);
+            string kategorija = Convert.ToString(comboBox3.SelectedItem);
 
             if (!string.IsNullOrEmpty(znamka) && !string.IsNullOrEmpty(kategorija))
             {
                 comboBox4.Enabled = true;
                 comboBox4.Items.Clear();
-                var models = SkupinaAvtov.Modeli(znamka, kategorija);
-                foreach (var m in models)
+                foreach (string m in SkupinaAvtov.Modeli(znamka, kategorija))
                     comboBox4.Items.Add(m);
 
                 label1.Text = string.Empty;
@@ -104,14 +104,10 @@ namespace NalogaOPR_Vozila
 
             if (!string.IsNullOrEmpty(imeModela))
             {
-                var model = SkupinaAvtov.Model(imeModela, znamka, kategorija);
+                Model model = SkupinaAvtov.Model(imeModela, znamka, kategorija);
                 if (model != null)
                 {
-                    label1.Text = 
-                        "Model: " + model.ImeModela  +  "  " +
-                        "Znamka: " + model.ImeZnamke + "  " +
-                        "Kategorija: " + model.ImeKategorije + "  " +
-                        "HP: " + model.HP;
+                    SkupinaAvtov.RaiseModelSelected(model);
                 }
                 else
                 {
@@ -124,35 +120,37 @@ namespace NalogaOPR_Vozila
             }
         }
 
+        private void SkupinaAvtov_ModelSelected(Model m)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<Model>(SkupinaAvtov_ModelSelected), new object[] { m });
+                return;
+            }
+            if (m == null)
+                label1.Text = string.Empty;
+            else
+                label1.Text = m.Opis();
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            //Slike dodam naslednic
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Materiali motorja
-            //classa za razlicne dele avta ki bo izracunala podatke iz drugih classov 
-            //vplivalo na HP
-            //dodam naslednic
         }
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Vrsta goriva
-            //classa za razlicne dele avta ki bo izracunala podatke iz drugih classov
-            //vplivalo na HP
-            //dodam naslednic
         }
 
         private void label9_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
