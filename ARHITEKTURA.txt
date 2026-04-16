@@ -1,0 +1,307 @@
+ARHITEKTURA PROJEKTA - DETALJNI PREGLED
+═════════════════════════════════════════════════════════════════════════════
+
+STRUKTURA FAJLOVA
+───────────────────────────────────────────────────────────────────────────
+
+NalogaOPR_Vozila/
+├── Form1.cs                    // Glavna forma - izbor vozila
+├── Form1.Designer.cs           // UI dizajn Form1
+├── FormVozniPark.cs            // Demonstracija forma - upravljanje vozilima
+├── FormVozniPark.Designer.cs   // UI dizajn FormVozniPark
+├── Vozila.cs                   // Sve OOP klase i interfejsi
+├── Program.cs                  // Entry point aplikacije
+├── NalogaOPR_Vozila.csproj     // Konfiguracijski fajl
+
+KLASE I HIJERARHIJA
+───────────────────────────────────────────────────────────────────────────
+
+HIJERARHIJA KLASA (Inheritance Chain):
+════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────┐
+│  Vozilo (Abstract)              │
+│  ├─ const DefaultTip            │
+│  └─ (bazna klasa za sve vozile)│
+└────────────┬────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────┐
+│  Znamka : Vozilo                │
+│  ├─ ImeZnamke (property)        │
+│  └─ (proizvodjač vozila)       │
+└────────────┬────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────┐
+│  Kategorija : Znamka            │
+│  ├─ ImeKategorije (property)    │
+│  └─ (tip vozila)               │
+└────────────┬────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────┐
+│  Model : Kategorija, IEquatable, IPerformance│
+│  ├─ ImeModela (property)                     │
+│  ├─ HP (property sa validacijom)             │
+│  ├─ ApplyPart(AutoPart part)                 │
+│  ├─ GetPerformanceBoost()                    │
+│  ├─ Operatori: >, <, ==, !=                 │
+│  └─ Equals(), GetHashCode()                  │
+└────────────┬─────────────────────────────────┘
+             │
+             ▼
+┌──────────────────────────────────────────────┐
+│  AutoVozilo : Model                          │
+│  ├─ RegistarskiBroj (property)               │
+│  ├─ BrojVrata (property sa validacijom)     │
+│  ├─ Zapremina (property sa validacijom)     │
+│  ├─ GodisnjaMasa (readonly property)        │
+│  ├─ const MaxBrzina = 200                   │
+│  ├─ static _brojAutomobila                  │
+│  ├─ static JeValidanRegistarskiBroj()       │
+│  ├─ DajDetalje()                            │
+│  ├─ Operatori: >, <, ==, !=, *             │
+│  └─ Destruktor (brojač --)                  │
+└──────────────────────────────────────────────┘
+
+STATIČKA KLASA - UPRAVLJAČ
+════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────────┐
+│  VozniParkManager (static class) │
+│  ├─ const MaxVozilaUParku = 1000 │
+│  ├─ const NazivParkaISO          │
+│  ├─ readonly _vozila List        │
+│  ├─ Static Constructor            │
+│  ├─ DodajVozilo(AutoVozilo)      │
+│  ├─ UkloniVozilo(string)         │
+│  ├─ PreuzetiBrojRegistra()       │
+│  ├─ DajSvaVozila()               │
+│  ├─ DajStatistiku()              │
+│  ├─ NadjiVozilaPoMarki()         │
+│  ├─ UkupnaMasaSvihVozila()       │
+│  └─ BrojVozilaUParku (property)  │
+└──────────────────────────────────┘
+
+INTERFEJSI
+════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────────────┐
+│  IPerformance                        │
+│  └─ GetPerformanceBoost() : int      │
+│     (Implementira: Model)            │
+└──────────────────────────────────────┘
+
+┌──────────────────────────────────────┐
+│  IEquatable<Model>                   │
+│  └─ Equals(Model) : bool             │
+│     (Implementira: Model)            │
+└──────────────────────────────────────┘
+
+DODATNE KLASE
+════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────┐
+│  AutoPart (Abstract)         │
+│  ├─ Weight (property)        │
+│  └─ AffectHP(Model) : int    │
+└──────┬───────────────────────┘
+       │
+       ▼
+┌──────────────────────────────┐
+│  EnginePart : AutoPart       │
+│  ├─ _boost : int             │
+│  ├─ Weight = 150             │
+│  └─ AffectHP() - vraća boost │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│  ModelCollection             │
+│  ├─ _items : Model[]         │
+│  ├─ Count (property)         │
+│  └─ Indexer [int]            │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│  SkupinaAvtov (static class) │
+│  ├─ event ModelSelected      │
+│  ├─ Vozila() : string[]      │
+│  ├─ Znamke() : string[]      │
+│  ├─ Kategorije() : string[]  │
+│  ├─ Modeli() : string[]      │
+│  ├─ Model() : Model          │
+│  ├─ GetAllModels()           │
+│  └─ RaiseModelSelected()     │
+└──────────────────────────────┘
+
+FORME - GRAFIČKI INTERFEJS
+════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────────┐
+│  FORM1 - Glavna Forma            │
+│  ├─ comboBox1 - Tip vozila       │
+│  ├─ comboBox2 - Marka            │
+│  ├─ comboBox3 - Kategorija       │
+│  ├─ comboBox4 - Model            │
+│  ├─ label1 - Prikaz detalja      │
+│  ├─ pictureBox1 - Slika          │
+│  ├─ groupBox1 - Opcije           │
+│  ├─ groupBox2 - Dodatne opcije   │
+│  └─ buttonVozniPark - Otvara     │
+│     FormVozniPark               │
+└──────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  FORMVOZNIPARK - OOP Demo Forma       │
+│  ├─ listBoxVozila - Prikaz vozila    │
+│  ├─ textBoxDetalji - Detalje vozila  │
+│  ├─ textBoxStatistika - Statistika   │
+│  ├─ labelBrojVozila - Broj vozila    │
+│  ├─ labelUkupnaMasa - Ukupna masa    │
+│  ├─ labelMaksimalnaBrzina - Brzina   │
+│  ├─ buttonUbrzaj - Ubrzavanje        │
+│  ├─ buttonUspora - Usporavanje       │
+│  ├─ numericUpDownBrzina - Vrednost   │
+│  ├─ textBoxMarka - Unos marke        │
+│  ├─ textBoxRegistar - Unos registra  │
+│  ├─ textBoxMasa - Unos mase          │
+│  ├─ textBoxZapremina - Unos zapremine│
+│  ├─ numericUpDownVrata - Broj vrata  │
+│  ├─ comboBoxBoja - Izbor boje        │
+│  ├─ buttonDodajVozilo - Dodaj novo   │
+│  ├─ buttonObrisiVozilo - Obriši      │
+│  └─ buttonOperatoriDemo - Demo       │
+│     preopterećenja operatora        │
+└────────────────────────────────────────┘
+
+TOK IZVRŠAVANJA
+════════════════════════════════════════════════════════════════════════════
+
+1. Program Startup
+   └─ Program.Main() → Form1
+
+2. Form1 Učitavanje
+   └─ Form1_Load() → Popunjava comboBox1 podacima
+
+3. Korisnik Bira Vozilo
+   └─ comboBox1_SelectedIndexChanged() → Popunjava comboBox2
+
+4. Korisnik Bira Marku
+   └─ comboBox2_SelectedIndexChanged() → Popunjava comboBox3
+
+5. Korisnik Bira Kategoriju
+   └─ comboBox3_SelectedIndexChanged() → Popunjava comboBox4
+
+6. Korisnik Bira Model
+   └─ comboBox4_SelectedIndexChanged()
+      └─ Model model = SkupinaAvtov.Model(...)
+         └─ SkupinaAvtov.RaiseModelSelected(model)
+            └─ SkupinaAvtov_ModelSelected(model)
+               └─ label1.Text = model.Opis()
+
+7. Korisnik Klikne "Vozni Park - OOP Demo"
+   └─ buttonVozniPark_Click()
+      └─ new FormVozniPark().Show()
+
+8. FormVozniPark Učitavanje
+   └─ FormVozniPark_Load()
+      └─ OsveziListu() - Prikazuje sva vozila iz VozniParkManager
+      └─ AzurirajStatistiku() - Prikazuje statistiku
+
+9. Operacije u FormVozniPark
+   ├─ Izbor vozila: listBoxVozila_SelectedIndexChanged()
+   ├─ Dodavanje: buttonDodajVozilo_Click() → VozniParkManager.DodajVozilo()
+   ├─ Brisanje: buttonObrisiVozilo_Click() → VozniParkManager.UkloniVozilo()
+   ├─ Ubrzaj: buttonUbrzaj_Click() → ApplyPart(EnginePart)
+   └─ Demo: buttonOperatoriDemo_Click() → Prikazuje operator>> logiku
+
+OOP KONCEPTI KORIŠĆENI U SVAKOM DELU
+════════════════════════════════════════════════════════════════════════════
+
+VOZILA.CS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ KAPSLACIJA
+  - Privatne promenljive _imeZnamke, _hp, _registarskiBroj, itd.
+  - Javna svojstva sa setterima koji vrse validaciju
+
+✓ KONSTRUKTORI
+  - Model(...) - lancani pozivi baznih konstruktora
+  - AutoVozilo(...) - inicijalizacija sa incrementom brojaca
+  - Static konstruktor VozniParkManager - inicijalizacija demo podataka
+
+✓ DESTRUKTORI
+  - ~AutoVozilo() - decrementira brojac
+
+✓ SVOJSTVA
+  - HP sa validacijom
+  - BrojVrata sa ogranicenjima
+  - GodisnjaMasa kao readonly
+
+✓ STATIC/CONST/READONLY
+  - const MaxVozilaUParku, MaxBrzina
+  - static _brojAutomobila, _vozila
+  - readonly _godisnjaMasa, _vozila
+
+✓ DEDOVANJE
+  - 5-nivoaska hijerarhija (Vozilo → ... → AutoVozilo)
+  - base() pozivi u konstruktorima
+
+✓ PREOPTEREĆENJE OPERATORA
+  - >, <, ==, != za AutoVozilo
+  - * za multiplikaciju mase
+  - Svi operatori u Model klasi
+
+✓ INTERFEJSI
+  - IPerformance sa GetPerformanceBoost()
+  - IEquatable<Model> sa Equals()
+
+FORM1.CS I FORM1.DESIGNER.CS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ OBJEKTNE METODE
+  - comboBox1_SelectedIndexChanged() - upravljač logike
+  - label1_Click() - event handler
+
+✓ SVOJSTVA
+  - this.comboBox1.Enabled = false - postavljanje svojstava
+
+✓ GRAFIČKI INTERFEJS
+  - Kombinovani ComboBox-evi za izbor
+  - Label za prikaz
+
+FORMVOZNIPARK.CS I DESIGNER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ STATIČKE METODE
+  - VozniParkManager.DodajVozilo()
+  - VozniParkManager.DajSvaVozila()
+  - AutoVozilo.JeValidanRegistarskiBroj()
+
+✓ OBJEKTNE METODE
+  - OsveziListu() - osvežavanje liste
+  - AzurirajStatistiku() - ažuriranje statističkih podataka
+  - PrikuziDetalje() - prikaz informacija
+
+✓ POLIMORFIZAM
+  - Korišćenje AutoVozilo kao Model (zbog dedovanja)
+  - Pozivanje virtuelnih metoda
+
+✓ GRAFIČKI INTERFEJS
+  - ListBox, TextBox, Button, NumericUpDown, ComboBox
+  - Event handleri za sve interakcije
+
+═════════════════════════════════════════════════════════════════════════════
+
+ZAKLJUČAK
+═════════════════════════════════════════════════════════════════════════════
+
+Ovaj projekat demonstrira:
+• Kompleksnu objektnu hijerarhiju sa 8+ klasa
+• Sve OOP koncepte kroz praktičnu aplikaciju
+• Integraciju sa Windows Forms GUI-jem
+• Demonstraciju svakog koncepta kroz interaktivne forme
+• Validirane i testu ready kod
+
+Svaki koncept nije samo prikazan - on je funkcionalan i korišćen u aplikaciji.

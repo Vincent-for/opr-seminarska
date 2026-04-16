@@ -1,0 +1,92 @@
+# OOP Demonstracija - Uputstvo
+
+## Kako Koristiti Aplikaciju
+
+### 1. **Početna Forma (Form1)**
+Klikom na "Vozni Park - OOP Demo" dugme, otvara se forma koja demonstrira sve OOP principe.
+
+### 2. **Vozni Park Forma (FormVozniPark)**
+
+#### a) Pregled Vozila
+- Levu stranu forme zauzima lista sve automobila u voznom parku
+- Svaki automobil je prikazan kao: `Marka Model (RegistarskiBroj)`
+- Klik na vozilo prikazuje detaljne informacije
+
+#### b) Detaljи Vozila
+- Prikazuje sve osobine izabranog vozila
+- Format: `Auto: Marka Model (Registar) | Masa | Motor | Vrata | HP`
+
+#### c) Statistika Voznog Parka
+- **Ukupno vozila**: Broj automobila u parku
+- **Prosečna masa**: Matematička sredina mase svih vozila
+- **Najteže vozilo**: Auto sa najvećom masom
+- **Najlakše vozilo**: Auto sa najmanjom masom
+- **Ukupna masa**: Zbir masa svih vozila
+
+#### d) Dodavanje Novog Vozila
+- Popunite polja:
+  - **Marka**: Proizvođač (npr. "Ferrari")
+  - **Registar**: Registarski broj (npr. "BEO-999-XY")
+  - **Masa**: Težina u kg (npr. 1500)
+  - **Boja**: Boja iz padajućeg spiska
+  - **Vrata**: Broj vrata (2, 4 ili 5)
+  - **Zapremina**: Zapremina motora u cc (npr. 3000)
+- Kliknite "Dodaj vozilo"
+- Lista i statistika će se automatski ažurirati
+
+#### e) Brisanje Vozila
+- Izaberite vozilo iz liste
+- Kliknite "Obriši vozilo"
+- Vozilo će biti izbrisano iz parka
+
+#### f) Demonstracija Preopterećenja Operatora
+- Kliknite "Demo preopterećenja operatora"
+- Prikazuje se poređenje mase prve dva vozila
+- Demonstrira:
+  - `>` operator (veće od)
+  - `<` operator (manje od)
+  - `==` operator (jednako)
+  - `*` operator (multiplikacija mase sa faktorom)
+
+## OOP Principi u Akciji
+
+### 1. **Kapslacija**
+Kako vidite na formi, ne možete direktno pristupiti privatnim poljima. Sve izmene se vrše kroz svojstva koja imaju validaciju.
+
+### 2. **Dedovanje**
+`AutoVozilo` klasa nasledjuje `Model` klasu, što omogućava pristup svim svojstvima i metodama bazne klase.
+
+### 3. **Polimorfizam**
+Preoptereće operatora (`>`, `<`, `==`, `*`) omogućava prirodnije poređenje automobila.
+
+### 4. **Statičke Metode**
+`VozniParkManager` je statička klasa koja upravlja svim vozilima kao kolekcijom. Nema potrebe za instanciranjem.
+
+### 5. **Const i Readonly**
+- `MaxVozilaUParku` je const - vrednost je znana pri kompajliranju
+- `_vozila` je readonly List - inicijalizuje se samo jednom
+
+### 6. **Konstruktori i Destruktori**
+Svako vozilo koje se dodaje povećava brojač, a svako obrisano vozilo ga smanjuje.
+
+## Primeri Testiranja
+
+### Test 1: Dodajte Tri Vozila
+1. Dodajte vozilo: "Lamborghini" registar "LUX-100-AA" masa 1800
+2. Dodajte vozilo: "Porsche" registar "LUX-200-BB" masa 1600
+3. Dodajte vozilo: "Ferrari" registar "LUX-300-CC" masa 1400
+4. Proverite statistiku - trebalo bi da prikage prosečnu masu
+
+### Test 2: Demonstracija Operatora
+1. Dodajte najmanje 2 vozila
+2. Kliknite "Demo preopterećenja operatora"
+3. Vidite poređenje i multiplikaciju
+
+### Test 3: Validacija
+1. Pokušajte dodati vozilo sa registarskim brojem "AB" (previše kratko)
+2. Sistem prikazuje grešku
+3. Ovo pokazuje kapslaciju i validaciju
+
+## Zaključak
+
+Ova aplikacija vam omogućava da vidite svi OOP principi u praksi, ne samo u teoriji. Eksperimentirajte sa dodavanjem i brisanjem vozila, i vidite kako sistem radi.

@@ -1,0 +1,388 @@
+═══════════════════════════════════════════════════════════════════════════
+                    POSTAVKA SEMINARSKE NALOGE
+                      OOP PRINCIPI U PRAKSI
+═══════════════════════════════════════════════════════════════════════════
+
+PREDMET: Predmeti Orijentisano na Objekte (OOP)
+JEZIK: C#
+FRAMEWORK: .NET Framework 4.7.2
+OCENJIVANJE: 20 bodova (svaki kriterijum: 0, 1 ili 2 boda)
+
+═══════════════════════════════════════════════════════════════════════════
+
+OPŠTI ZAHTEVI
+───────────────────────────────────────────────────────────────────────────
+
+Trebate da kreirate aplikaciju koja demonstrira sve bitne OOP principu.
+Aplikacija mora biti:
+
+1. FUNKCIONALNA
+   └─ Bez grešaka pri kompajliranju
+   └─ Mogućnost pokretanja i testiranja
+
+2. OBRAZOVNA
+   └─ Jasno demonstrira OOP principu
+   └─ Čitljiv i dobro organizovan kod
+
+3. INTERAKTIVNA
+   └─ Ima GUI za testiranje
+   └─ Omogućava rad sa objektima
+
+═══════════════════════════════════════════════════════════════════════════
+
+SPECIFIČNI KRITERIJUMI OCENJIVANJA
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 1: KAPSLACIJA (ENCAPSULATION)
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Privatna polja (_ime, _vrednost)
+  ✓ Javna svojstva (Properties) za pristup
+  ✓ Getter i Setter metode (get; set;)
+  ✓ Validacija u svojstvima
+  ✓ Read-only polja/svojstva
+
+Primeri:
+  • private string _marka;
+  • public string Marka { get; set; }
+  • public string Marka { get { return _marka; } }
+
+Ocena:
+  2 boda: Potpuno implementirano sa validacijom
+  1 bod: Delimično implementirano
+  0 bodova: Nije implementirano
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 2: KONSTRUKTORI I DESTRUKTORI
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Konstruktor sa parametrima
+  ✓ Destruktor
+  ✓ Inicijalizacija polja
+  ✓ Base() poziv ako imate dedovanje
+  ✓ Brojač instanci (da vidite destruktore)
+
+Primeri:
+  • public AutoVozilo(string marka, int hp) { ... }
+  • ~AutoVozilo() { ... }
+  • : base(marka) // poziv parent konstruktora
+
+Ocena:
+  2 boda: Svi tipovi konstruktora/destruktor
+  1 bod: Samo konstruktor ili destruktor
+  0 bodova: Nije implementirano
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 3: SVOJSTVA (PROPERTIES)
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Get/set svojstva
+  ✓ Auto-implemented properties { get; set; }
+  ✓ Read-only svojstva (=>)
+  ✓ Static svojstva
+  ✓ Properties sa logikom (validacija)
+
+Primeri:
+  • public string Marka { get; set; }
+  • public int Cena => _cena;  // read-only
+  • public int Broj { get => _broj; set => _broj = value; }
+
+Ocena:
+  2 boda: 5+ različitih tipova svojstava
+  1 bod: 2-4 tipa svojstava
+  0 bodova: Nema svojstava
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 4: METODE (STATIČKE I OBJEKTNE)
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Statičke metode (static) - minimum 5
+  ✓ Objektne metode (instance) - minimum 5
+  ✓ Parametri i povratne vrednosti
+  ✓ Javne i privatne metode
+  ✓ Override metode (ToString, Equals)
+
+Primeri:
+  • public static void DodajElement(Vozilo v) { }
+  • public string GetInfo() { return ...; }
+  • public override string ToString() { }
+
+Ocena:
+  2 boda: 8+ metoda sa jasnom logikom
+  1 bod: 5-7 metoda
+  0 bodova: Manje od 5 metoda
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 5: STATIC, CONST, READONLY
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ const za konstante (compile-time)
+  ✓ static za deljive podatke
+  ✓ readonly za nepromenjive poljapost inicijalizacije
+  ✓ Static svojstva
+  ✓ Static metode
+
+Primeri:
+  • public const int MAX_VOZILA = 100;
+  • private static int _brojUkupno = 0;
+  • private readonly string _registar;
+
+Ocena:
+  2 boda: Sve tri vrste korišćene
+  1 bod: Dve vrste korišćene
+  0 bodova: Samo jedna ili nema
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 6: PREOPTEREČENJE OPERATORA
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ operator > (veće od)
+  ✓ operator < (manje od)
+  ✓ operator == (jednako)
+  ✓ operator != (nije jednako)
+  ✓ Dodatni operatori (+, -, *, /)
+
+Primeri:
+  • public static bool operator >(Vozilo a, Vozilo b) { }
+  • public static Vozilo operator *(Vozilo v, double x) { }
+
+Ocena:
+  2 boda: 5+ operatora implementirano
+  1 bod: 2-4 operatora
+  0 bodova: Bez operatora ili samo 1
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 7: DEDOVANJE (INHERITANCE)
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Bazna klasa
+  ✓ Nasledjene klase (minimum 2)
+  ✓ Base() pozivi
+  ✓ Nasledjivanje svojstava
+  ✓ Specijalizacija u nasledjenim klasama
+
+Primeri:
+  • public class Vozilo { }
+  • public class AutoVozilo : Vozilo { }
+  • : base(parametri)
+
+Struktura:
+  - Minimalno 3 nivoa dedovanja
+  - Svaki nivo dodaje nove mogućnosti
+
+Ocena:
+  2 boda: 3+ nivoa dedovanja sa jasnom hijerarhijom
+  1 bod: 2 nivoa dedovanja
+  0 bodova: Bez dedovanja
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 8: SOPSTVENE KLASE
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Minimum 8 sopstvenih klasa
+  ✓ Klase sa jasnom svrhom
+  ✓ Klase se koriste u aplikaciji
+  ✓ Izbegavati samo "dummy" klase
+
+Primeri:
+  1. Vozilo (bazna)
+  2. Znamka (nasledjuje)
+  3. Kategorija (nasledjuje)
+  4. Model (nasledjuje)
+  5. AutoVozilo (konkretna)
+  6. Manager (upravljač)
+  7. Collection (kolekcija)
+  8. Engine (engine part)
+
+Ocena:
+  2 boda: 8+ klasa sa smisleном svrhom
+  1 bod: 5-7 klasa
+  0 bodova: Manje od 5 klasa
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 9: INTERFEJSI I ABSTRAKTNE KLASE
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Interfejsi (interface) - minimum 1
+  ✓ Abstraktne klase (abstract) - minimum 1
+  ✓ Implementacija interfejsa
+  ✓ Nasleđivanje abstraktnih klasa
+  ✓ Abstract metode i svojstva
+
+Primeri:
+  • public interface IPerformance { }
+  • public abstract class AutoPart { }
+  • public class Engine : AutoPart { }
+
+Ocena:
+  2 boda: 2+ interfejsa i 1+ abstraktne klase
+  1 bod: 1 interfejs ili 1 abstraktna klasa
+  0 bodova: Bez interfejsa/abstraktnih klasa
+
+───────────────────────────────────────────────────────────────────────────
+
+KRITERIJUM 10: GRAFIČKI INTERFEJS (GUI)
+Ocena: 0, 1 ili 2 boda
+
+Šta trebate implementirati:
+  ✓ Najmanje 2 forme (Windows Forms)
+  ✓ Kontrole: TextBox, Button, ListBox, ComboBox
+  ✓ Event hendleri (Click, SelectedIndexChanged)
+  ✓ Validacija unosa
+  ✓ Prikazivanje rezultata
+
+Funkcionalnosti:
+  • Dodavanje elemenata
+  • Brisanje elemenata
+  • Prikaz liste
+  • Pretraga
+  • Prikaz detalja
+
+Ocena:
+  2 boda: 2+ forme sa bogatim mogućnostima
+  1 bod: 1 forma sa osnovnom funkcionalnošću
+  0 bodova: Bez GUI
+
+═══════════════════════════════════════════════════════════════════════════
+
+KAKO SE OCENJUJE
+───────────────────────────────────────────────────────────────────────────
+
+OCENA: 0 bodova
+  • Kriterijum nije zadovoljen
+  • Nema implementacije ili je vrlo loša
+
+OCENA: 1 bod
+  • Kriterijum je delimično zadovoljen
+  • Implementacija je prisutna ali nepotpuna
+  • Mogu biti manji problemi
+
+OCENA: 2 boda
+  • Kriterijum je potpuno zadovoljen
+  • Implementacija je potpuna i korektna
+  • Nema problema
+
+KONAČNA OCENA:
+  • Zbir svih bodova (0-20 bodova)
+  • 18-20 bodova: ODLIČAN (A)
+  • 15-17 bodova: VRLO DOBAR (B)
+  • 12-14 bodova: DOBAR (C)
+  • Manje od 12 bodova: NEDOVOLJAN
+
+═══════════════════════════════════════════════════════════════════════════
+
+OBAVEZE PRI PREDAJI
+───────────────────────────────────────────────────────────────────────────
+
+Trebate da dodate:
+
+1. ✓ Izvršni kod (C# projekat)
+2. ✓ Source fajlovi (.cs fajlovi)
+3. ✓ Projekat fajl (.csproj)
+4. ✓ Dokumentacija (README, OCENJIVANJE)
+5. ✓ Git commit sa porukama
+
+STRUKTURA DIREKTORIJUMA:
+  project/
+  ├── NalogaOPR_Vozila/
+  │   ├── *.cs (svi C# fajlovi)
+  │   ├── *.csproj (projekt fajl)
+  │   └── *.Designer.cs (GUI fajlovi)
+  ├── README.md (ili README_SL.md)
+  ├── OCENJIVANJE.txt
+  └── .git/ (Git folder)
+
+═══════════════════════════════════════════════════════════════════════════
+
+DODATNE PREPORUKE
+───────────────────────────────────────────────────────────────────────────
+
+1. KOD TREBATE:
+   ✓ Biti čitljiv i dobro formatiran
+   ✓ Imati komentare na ključnim mestima
+   ✓ Slediti naming konvencije
+   ✓ Izbegavati "spaghetti kod"
+
+2. KLASE TREBATE:
+   ✓ Imati jednu odgovornost
+   ✓ Biti koherentne
+   ✓ Biti ponovo upotrebljive
+
+3. TESTIRANJE:
+   ✓ Testirati sve funkcionalnosti
+   ✓ Proveriti graniče slučajeve
+   ✓ Osigurati da nema grešaka
+
+═══════════════════════════════════════════════════════════════════════════
+
+PRIMER DOBARROJEKTA
+───────────────────────────────────────────────────────────────────────────
+
+Dobar projekt sadrži:
+
+✓ Hijerarhija klasa (3-5 nivoa dedovanja)
+✓ Manager klasa za upravljanje objektima
+✓ Validacija podataka
+✓ Preopterečene operatore
+✓ Statičke i instance metode
+✓ GUI sa interakcijom
+✓ Čist i čitljiv kod
+✓ Dobra dokumentacija
+
+═══════════════════════════════════════════════════════════════════════════
+
+VAŽNA NAPOMENA
+───────────────────────────────────────────────────────────────────────────
+
+IZBEGAVAJTE:
+
+❌ Kopiranje koda sa Interneta
+❌ "Dummy" klase bez svrhe
+❌ Nekompletnu implementaciju
+❌ Kod sa greškama
+❌ Loše formatiran kod
+❌ Nedostaju komentari
+❌ Ignorisane upozore pri kompajliranju
+
+═══════════════════════════════════════════════════════════════════════════
+
+ROK ZA PREDAJU
+───────────────────────────────────────────────────────────────────────────
+
+Trebate da priložite:
+  1. Git link do repo-ja
+  2. Izvršni .exe fajl
+  3. Dokumentaciju
+  4. Izveštaj o ocenjivanju
+
+═══════════════════════════════════════════════════════════════════════════
+
+PITANJA?
+───────────────────────────────────────────────────────────────────────────
+
+Ako imate pitanja tokom razvoja, konsultujte:
+  • Predavanja i materijale
+  • Online dokumentaciju C#
+  • Microsoft Learn dokumentaciju
+  • Profesor/mentor
+
+═══════════════════════════════════════════════════════════════════════════
+
+SRETNO U RADU! 🎉

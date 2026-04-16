@@ -1,0 +1,177 @@
+PRAKTIČNI VODIČ - TESTIRANJE OOP PRINCIPA
+═════════════════════════════════════════════════════════════════════════════
+
+KAKO TESTIRATI SVAKI OOP PRINCIP U APLIKACIJI
+
+═════════════════════════════════════════════════════════════════════════════
+1. KAPSLACIJA - Privatne promenljive sa javnim interfejsom
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Otvorite FormVozniPark
+2. Izaberite vozilo iz liste
+3. Pokušajte da vidite registarski broj u tekstualnom polju
+4. Proverite da ne možete direktno pristupiti privatnom _registarskiBroj polјu
+
+OČEKIVANI REZULTAT:
+- Broj je vidljiv kroz javno svojstvo RegistarskiBroj
+- Ne možete pristupiti privatnom polјu direktno
+- Sva svojstva su zaštićena (getter/setter)
+
+═════════════════════════════════════════════════════════════════════════════
+2. KONSTRUKTORI/DESTRUKTORI - Inicijalizacija i čišćenje
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Dodajte 5 novih vozila uzastopno
+2. Za svako vozilo, proverite da se brojač povećava
+3. Obrišite nekoliko vozila
+4. Proverite da se brojač smanjuje
+
+OČEKIVANI REZULTAT:
+- AutoVozilo._brojAutomobila se povećava pri dodavanju
+- Destruktor se poziva pri brisanju (broj se smanjuje)
+- Inicijalizacija podataka kroz konstruktor je vidljiva
+
+═════════════════════════════════════════════════════════════════════════════
+3. SVOJSTVA - Get/Set sa validacijom
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Pokušajte dodati vozilo sa:
+   - Negativnom masom (trebalo bi da odbije ili postavi 0)
+   - Brojem vrata = 3 (trebalo bi da odbije)
+   - Brojem vrata = 4 (trebalo bi da prihvati)
+2. Pokušajte pristupiti GodisnjaMasa svojstvu za čitanje
+
+OČEKIVANI REZULTAT:
+- Validacija sprečava nevalidne vrednosti
+- GodisnjaMasa je read-only - ne možete ga promeniti nakon inicijalizacije
+- BrojVrata prihvata samo 2, 4 ili 5
+
+═════════════════════════════════════════════════════════════════════════════
+4. STATIČKE METODE - Bez instance
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Koda poziva VozniParkManager.DodajVozilo() ne kreira se instanca
+2. Klik na "Dodaj vozilo" koristi statičku metodu
+3. VozniParkManager.BrojVozilaUParku vraća broj bez instance
+
+OČEKIVANI REZULTAT:
+- Sve operacije koriste statičke metode
+- Nema potrebe za: new VozniParkManager()
+- Centralizovani pristup podacima kroz statičku klasu
+
+═════════════════════════════════════════════════════════════════════════════
+5. STATIC, CONST, READONLY
+───────────────────────────────────────────────────────────────────────────
+
+TEST A - CONST:
+1. Pokušajte pristupiti AutoVozilo.MaxBrzina (200) u kodu
+2. Pokušajte pristupiti VozniParkManager.MaxVozilaUParku (1000)
+3. Pokušajte dodati više od 1000 vozila
+
+TEST B - STATIC:
+1. Dodajte vozilo A
+2. Obrisite vozilo A
+3. Dodajte novo vozilo B
+4. Brojač vozila bi trebao biti 1 (ne 2)
+
+TEST C - READONLY:
+1. GodisnjaMasa se može postaviti samo u konstruktoru
+2. Nakon konstruktora, ne možete ga menjati
+
+OČEKIVANI REZULTAT:
+- CONST: Vrednosti se znaju pri kompajliranju
+- STATIC: Brojač je deljiv među svim instancama
+- READONLY: Masa se ne može menjati nakon kreiranja
+
+═════════════════════════════════════════════════════════════════════════════
+6. PREOPTEREĆENJE OPERATORA
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Dodajte 2 vozila sa različitim masama
+2. Kliknite "Demo preopterećenja operatora"
+3. Vidite poređenje i multiplikaciju
+
+DEMO PRIKAZUJE:
+- a1 > a2 - Prvo vozilo je teže
+- a1 < a2 - Obrnuto poređenje
+- a1 == a2 - Jednakost po registarskom broju
+- a1 * 1.2 - Nova masa povećana za 20%
+
+═════════════════════════════════════════════════════════════════════════════
+7. DEDOVANJE - Hijerarhija klasa
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. AutoVozilo nasledjuje Model
+2. Model nasledjuje Kategorija → Znamka → Vozilo
+3. AutoVozilo može pristupiti svim svojstvima:
+   - ImeZnamke (iz Znamka klase)
+   - ImeModela (iz Model klase)
+   - HP (iz Model klase)
+   - RegistarskiBroj (iz AutoVozilo klase)
+
+OČEKIVANI REZULTAT:
+- AutoVozilo ima svojstva iz cele hijerarhije
+- Sve svojstva su dostupna bez duplikacija
+- Override metoda DajDetalje() pristupa svim svojstvima
+
+═════════════════════════════════════════════════════════════════════════════
+8. SOPSTVENE KLASE (3+)
+───────────────────────────────────────────────────────────────────────────
+
+TRI GLAVNE KLASE:
+1. AutoVozilo - Konkretna klasa sa specifičnim svojstvima
+2. VozniParkManager - Upravljač kolekcije
+3. Model/Kategorija/Znamka - Deo hijerarhije
+
+TEST:
+1. Kreirajte novu instancu: AutoVozilo auto = new AutoVozilo(...)
+2. Koristite: VozniParkManager.DodajVozilo(auto)
+3. Proverite pristup svojstvima
+
+═════════════════════════════════════════════════════════════════════════════
+9. INTERFEJSI
+───────────────────────────────────────────────────────────────────────────
+
+TEST:
+1. Model implementira IPerformance
+2. Koda poziva auto.GetPerformanceBoost() - vraća HP
+3. Model implementira IEquatable<Model> - poređenje modela
+
+═════════════════════════════════════════════════════════════════════════════
+10. GRAFIČKI INTERFEJS
+───────────────────────────────────────────────────────────────────────────
+
+FORM1:
+- Izbor vozila kroz ComboBox-eve
+- Prikaz detalja izabranog modela
+- Dugme za otvaranje Voznog Parka
+
+FORMVOZNIPARK:
+- Prikaz svih vozila
+- Statistika
+- Dodavanje novih vozila
+- Brisanje vozila
+- Demo preopterećenja operatora
+
+═════════════════════════════════════════════════════════════════════════════
+
+OČEKIVANI REZULTATI - KAKO ZNAM DA JE ISPRAVNO
+
+✓ KAPSLACIJA: Ne mogu pristupiti privatnim poljima direktno
+✓ KONSTRUKTORI: Brojač se menja pri kreiranju/brisanju
+✓ SVOJSTVA: Validacija radi (ne mogu postaviti nevalidne vrednosti)
+✓ STATIČKE METODE: Nema potrebe za instancama
+✓ CONST/STATIC/READONLY: Različito ponašanje očekivano
+✓ OPERATORI: Poređenje i multiplikacija rade kako je definirano
+✓ DEDOVANJE: Svojstva iz bazne klase su dostupna
+✓ KLASE: 8+ sopstvenih klasa kreirano
+✓ INTERFEJSI: IPerformance i IEquatable rade
+✓ GUI: Obe forme su funkcionalneÌ
+
+═════════════════════════════════════════════════════════════════════════════

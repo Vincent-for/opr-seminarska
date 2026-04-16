@@ -1,0 +1,210 @@
+═══════════════════════════════════════════════════════════════════════════
+                    NAVODILA ZA UPORABO - SLOVENŠČINA
+═══════════════════════════════════════════════════════════════════════════
+
+KAKO ZAGNATI APLIKACIJO
+───────────────────────────────────────────────────────────────────────────
+
+1. ODPRITE PROJEKT
+   └─ Odpreti NalogaOPR_Vozila.sln v Visual Studio 2026
+
+2. POKRENITE APLIKACIJO
+   └─ F5 ali Debug > Start Debugging
+
+3. GLAVNA FORMA se pojavi s tremi spustnimi seznami
+
+═══════════════════════════════════════════════════════════════════════════
+
+GLAVNA FORMA (FORM1)
+───────────────────────────────────────────────────────────────────────────
+
+KORAKI IZBIRE:
+
+1️⃣ VRSTA VOZILA
+   - Izberite "Avto" iz prvega spustnega seznama
+
+2️⃣ MARKA
+   - Izbira: BMW, Audi, Volkswagen
+
+3️⃣ KATEGORIJA
+   - Izbira: Sport, SUV, Limo
+
+4️⃣ MODEL
+   - Prikazani so modeli glede na izbrano marko in kategorijo
+
+5️⃣ PRIKAZ PODROBNOSTI
+   - Prikazane so informacije o izbranem modelu
+   - Format: "Model: ... | Znamka: ... | Kategorija: ... | HP: ..."
+
+6️⃣ DÉMONSTRACIJSKI GUMB
+   - Kliknite "Vozni Park - OOP Demo" za odprtje demonstracijske forme
+
+═══════════════════════════════════════════════════════════════════════════
+
+DEMONSTRACIJSKA FORMA (FORMVOZNIPARK)
+───────────────────────────────────────────────────────────────────────────
+
+A) PREGLED VOZIL (Levo stran)
+   ├─ ListBox s svemi vozili v voznem parku
+   ├─ Format: "Marka Model (RegistarskaBroj)"
+   └─ Klik na vozilo → prikaže podrobnosti
+
+B) PODROBNOSTI VOZILA
+   ├─ Marka in model
+   ├─ Registrska tablica
+   ├─ Masa (kg)
+   ├─ Število vrat
+   ├─ Motor (cc)
+   └─ Konjska moč (HP)
+
+C) STATISTIKA VOZNEGA PARKA
+   ├─ Skupaj vozil: N
+   ├─ Povprečna masa: XXX kg
+   ├─ Najtežje vozilo: Marka Model (XXX kg)
+   └─ Najlakše vozilo: Marka Model (XXX kg)
+
+D) UPRAVLJANJE VOZIL
+
+   ├─ DODAJ VOZILO
+   │  ├─ Vnesite marko
+   │  ├─ Vnesite registarsko tablico (min. 3 znaki)
+   │  ├─ Vnesite maso (kg)
+   │  ├─ Izberite barvo
+   │  ├─ Vnesite število vrat (2, 4 ali 5)
+   │  ├─ Vnesite zapreminę motora (cc)
+   │  └─ Pritisnite "Dodaj vozilo"
+   │
+   ├─ OBRIŠI VOZILO
+   │  ├─ Izberite vozilo iz seznama
+   │  └─ Pritisnite "Obriši vozilo"
+   │
+   └─ DEMONSTRACIJA OPERATORJEV
+      ├─ Pritisnite "Demo preopterečenja operatorjev"
+      ├─ Prikazuje poređenje prve dve vozili
+      └─ Prikazuje rezultate: >, <, ==, *
+
+═══════════════════════════════════════════════════════════════════════════
+
+DEMONSTRACIJA OOP PRINCIPOV - PRAKTIČNO
+───────────────────────────────────────────────────────────────────────────
+
+1. KAPSLACIJA
+   └─ Registrska tablica je zasebna (private)
+   └─ Dostopamo skozi javno svojstvo
+   └─ Brez direktnega dostopa do internalne strukture
+
+2. KONSTRUKTORJI
+   └─ Vsako novo vozilo povečuje interno brojač
+   └─ Inizijalizacija je obvezna preko konstruktorja
+
+3. SVOJSTVA
+   └─ BrojVrata: Samo 2, 4 ali 5 (validacija)
+   └─ Masa: readonly - ne morete spremeniti po kreiranju
+
+4. STATIČNE METODE
+   └─ VozniParkManager.DodajVozilo() - brez instance
+   └─ VozniParkManager.DajSvaVozila() - vrne seznam
+
+5. DEDOVANJE
+   └─ AutoVozilo nasleduje Model
+   └─ Pristopate lastnostim iz cele hierarhije
+
+6. OPERATORJI
+   └─ Prvo vozilo > Drugo vozilo (primerjava mas)
+   └─ Prvo vozilo * 1.2 (povečanje mase)
+
+═══════════════════════════════════════════════════════════════════════════
+
+TEST SCENARIJI
+───────────────────────────────────────────────────────────────────────────
+
+TEST 1: VALIDACIJA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Dodaj novo vozilo s registarsko tablico "AB" (premalo)
+   └─ REZULTAT: Napaka! "Min. 3 znaki"
+2. Dodaj vozilo z brojem vrat = 3
+   └─ REZULTAT: Sistem to odkloni (samo 2, 4, 5)
+
+TEST 2: DEDOVANJE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Izberite vozilo iz glavne forme
+2. Vidite vsa svojstva (ImeZnamke, ImeModela, HP)
+3. AutoVozilo ima dostop do lastnosti iz Model, Znamka, itd.
+
+TEST 3: OPERATORJI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Imejte vsaj 2 vozili v seznamu
+2. Kliknite "Demo preopterečenja operatorjev"
+3. Vidite:
+   - Vozilo A > Vozilo B: TRUE/FALSE
+   - Vozilo A < Vozilo B: TRUE/FALSE
+   - Vozilo A == Vozilo B: TRUE/FALSE
+   - Vozilo A * 1.2 = nova masa
+
+═══════════════════════════════════════════════════════════════════════════
+
+ČASOVNICE ZAGINITVE
+───────────────────────────────────────────────────────────────────────────
+
+⏱️ KRATKO (2-3 min):
+   1. Zaganite aplikacijo
+   2. Izberite vozilo iz glavne forme
+   3. Odprite Vozni Park demo
+   4. Vidite seznam vozil
+
+⏱️ SREDNJE (5-10 min):
+   1. Vse zgoraj
+   2. Dodajte novo vozilo
+   3. Obrišite vozilo
+   4. Vidite kako se statistika spreminja
+
+⏱️ DOLGOTRAJNO (15+ min):
+   1. Vse zgoraj
+   2. Testirajte validacijo
+   3. Kliknite Demo operatorjev
+   4. Preverite statistiko
+
+═══════════════════════════════════════════════════════════════════════════
+
+POGOSTO ZASTAVLJENA VPRAŠANJA (FAQ)
+───────────────────────────────────────────────────────────────────────────
+
+V1: Kaj se zgodi, če hočem postaviti BrojVrata = 3?
+A: Sistem to ne dopušči! Svojstvo ima validacijo - samo 2, 4 ali 5.
+
+V2: Kako se maž povečuje, ko dodam vozilo?
+A: Preko konstruktorja - svaki novo vozilo kliče _brojVozila++
+
+V3: Kaj je ReadOnly svojstvo?
+A: GodisnjaMasa je readonly - postavite ga samo v konstruktorju.
+
+V4: Kako deluje operator *?
+A: AutoVozilo * 1.2 vrne novo vozilo z povečano maso za 20%.
+
+V5: Kaj je dedovanje?
+A: AutoVozilo nasleduje Model - ima dostop do vseh njegovih lastnosti.
+
+═══════════════════════════════════════════════════════════════════════════
+
+TEHNIČNA PODRŠKA
+───────────────────────────────────────────────────────────────────────────
+
+Če aplikacija ne deluje:
+
+1. PREVERITE VERZIJO .NET
+   └─ Projekt zahteva .NET Framework 4.7.2
+
+2. OČISTITE GRADNJO
+   └─ Build > Clean Solution
+   └─ Build > Build Solution
+
+3. PREVERITE NAPAKE
+   └─ View > Error List
+   └─ Popravite vse kompilacijske napake
+
+4. OBNOVITE PROJEKT
+   └─ V Visual Studio: File > Open > NalogaOPR_Vozila.sln
+
+═══════════════════════════════════════════════════════════════════════════
+
+Hvala za uporabo! 🎉

@@ -1,0 +1,220 @@
+MAPIRANJE OOP PRINCIPA - SEMINARSKA NALOGA
+
+═════════════════════════════════════════════════════════════════════════════
+
+1. KAPSLACIJA (Encapsulation)
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs - Sve klase (Vozilo, Znamka, Kategorija, Model, AutoVozilo)
+
+Primeri:
+• Privatne promenljive sa zaštitom:
+  - _imeZnamke, _imeKategorije, _imeModela, _hp (u Model klasi)
+  - _registarskiBroj, _brojVrata, _zapremina (u AutoVozilo klasi)
+  - _godisnjaMasa (readonly privatna promenljiva)
+
+• Javna svojstva sa validacijom:
+  - HP svojstvo - validira da vrednost nije negativna
+  - BrojVrata svojstvo - validira samo dozvoljene vrednosti (2, 4, 5)
+  - Zapremina svojstvo - validira da je veća od 0
+
+═════════════════════════════════════════════════════════════════════════════
+
+2. KONSTRUKTORI/DESTRUKTORI
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+Konstruktori:
+• Model(...) - inicijalizuje sve bazne klase kroz inheritance chain
+• AutoVozilo(...) - inicijalizuje AutoVozilo sa svim parametrima
+  Poziva: base(...) za inicijalizaciju Model klase
+  Inkrementira: _brojAutomobila++
+
+Static Konstruktor:
+• VozniParkManager static initializer
+  Poziva: InicijalizujDemoVozila() - popunjava inicijalnu listu vozila
+
+Destruktori:
+• AutoVozilo destruktor (~AutoVozilo)
+  Smanjuje brojač: _brojAutomobila--
+
+═════════════════════════════════════════════════════════════════════════════
+
+3. SVOJSTVA (Properties)
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+Auto-implemented Properties:
+• HP svojstvo (Model klasa)
+• RegistarskiBroj, BrojVrata, Zapremina (AutoVozilo klasa)
+
+Properties sa Logikom:
+• HP - sa setterom koji validira negativne vrednosti
+• BrojVrata - sa setterom koji validira da bude 2, 4 ili 5
+• Zapremina - sa setterom koji validira da bude > 0
+
+Read-only Properties:
+• GodisnjaMasa => _godisnjaMasa (u AutoVozilo klasi)
+• BrojAutomobila => _brojAutomobila (static)
+• BrojVozilaUParku => _vozila.Count (u VozniParkManager)
+
+═════════════════════════════════════════════════════════════════════════════
+
+4. STATIČKE I OBJEKTNE METODE
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+Statičke Metode (Ne zahtevaju instancu):
+• VozniParkManager.DodajVozilo(AutoVozilo vozilo)
+• VozniParkManager.UkloniVozilo(string registarskiBroj)
+• VozniParkManager.PreuzetiBrojRegistra(string registarskiBroj)
+• VozniParkManager.DajSvaVozila()
+• VozniParkManager.DajStatistiku()
+• VozniParkManager.NadjiVozilaPoMarki(string marka)
+• VozniParkManager.UkupnaMasaSvihVozila()
+• AutoVozilo.JeValidanRegistarskiBroj(string broj)
+
+Objektne Metode (Zahtevaju instancu):
+• AutoVozilo.DajDetalje() - vraća string sa detaljima
+• Model.ApplyPart(AutoPart part) - primenjuje performanse
+• Model.GetPerformanceBoost() - vraća HP (iz interfejsa IPerformance)
+
+═════════════════════════════════════════════════════════════════════════════
+
+5. STATIC, CONST, READONLY PODACI
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+CONST (Kompilacijske Konstante):
+• AutoVozilo.MaxBrzina = 200
+• VozniParkManager.MaxVozilaUParku = 1000
+• VozniParkManager.NazivParkaISO = "VOZNI_PARK_2024"
+• Vozilo.DefaultTip = "Avto"
+
+STATIC (Deljeni Podaci za Sve Instance):
+• AutoVozilo._brojAutomobila - brojač aktivnih vozila
+• VozniParkManager._vozila - centralni repozitorijum svih vozila
+
+READONLY (Samo se inicijalizuje, ne može se menjati):
+• AutoVozilo._godisnjaMasa - inicijalizuje se u konstruktoru
+• VozniParkManager._vozila - inicijalizuje se kao readonly List
+
+═════════════════════════════════════════════════════════════════════════════
+
+6. PREOPTEREĆENJE OPERATORA (Operator Overloading)
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs - AutoVozilo klasa i Model klasa
+
+AutoVozilo Operatori:
+• operator > - poređenje po masi (a1.GodisnjaMasa > a2.GodisnjaMasa)
+• operator < - poređenje po masi (a1.GodisnjaMasa < a2.GodisnjaMasa)
+• operator == - poređenje po registarskom broju (RegistarskiBroj)
+• operator != - negacija == operatora
+• operator * - multiplikacija mase sa faktorom
+  Primer: auto * 1.2 → novo vozilo sa masom povećanom za 20%
+
+Model Operatori:
+• operator > - poređenje po HP (a.HP > b.HP)
+• operator < - poređenje po HP (a.HP < b.HP)
+• operator == - poređenje po modelskim svojstvima
+• operator != - negacija == operatora
+
+═════════════════════════════════════════════════════════════════════════════
+
+7. DEDOVANJE (Inheritance)
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+Hijerarhija Klasa:
+────────────────────────────────────────
+    Vozilo (Abstract - bazna klasa)
+      │
+      └─→ Znamka : Vozilo
+           │
+           └─→ Kategorija : Znamka
+                │
+                └─→ Model : Kategorija, IEquatable<Model>, IPerformance
+                     │
+                     └─→ AutoVozilo : Model
+
+Dedovanje u Praksi:
+• AutoVozilo nasledjuje Model sa: class AutoVozilo : Model
+• Poziva baznu klasu sa: base(tip, imeZnamke, imeKategorije, imeModela, hp)
+• Pristupa baznim svojstvima: ImeZnamke, ImeModela, HP (iz Model klase)
+• Overriduje metodu (ako postojala): ToString()
+
+═════════════════════════════════════════════════════════════════════════════
+
+8. SOPSTVENE KLASE (Minimum 3)
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+Tri Glavne Klase (Pored Auto-Generated Klasa):
+1. AutoVozilo - Konkretna klasa za automobile sa posebnim svojstvima
+   - Nasledjuje Model
+   - Dodaje svojstva: registarskiBroj, brojVrata, zapremina, godisnjaMasa
+   - Implementira preopterećene operatore
+
+2. VozniParkManager - Statička klasa za upravljanje vozilima
+   - Upravljanje kolekcijom automobila
+   - Statističke analize
+   - CRUD operacije (Create, Read, Update, Delete)
+
+3. (Dodatne Klase):
+   - Model - demonstrira hijerarhiju i interfejse
+   - Kategorija - deo hijerarhije
+   - Znamka - deo hijerarhije
+   - Vozilo - apstraktna bazna klasa
+   - EnginePart - implementira AutoPart
+
+═════════════════════════════════════════════════════════════════════════════
+
+9. INTERFEJSI
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Vozila.cs
+
+IPerformance Interface:
+• Metoda: int GetPerformanceBoost()
+• Implementira: Model klasa
+• Svrha: Standardizuje kako se mogu meriti performanse vozila
+
+IEquatable<Model> Interface:
+• Metoda: bool Equals(Model other)
+• Implementira: Model klasa
+• Svrha: Omogućava poređenje modela po sadržaju
+
+═════════════════════════════════════════════════════════════════════════════
+
+10. GRAFIČKI INTERFEJS
+───────────────────────────────────────────────────────────────────────────
+Lokacija: Form1.cs, Form1.Designer.cs, FormVozniPark.cs, FormVozniPark.Designer.cs
+
+Form1 - Glavna Forma:
+• Izbor vozila: ComboBox-ovi za tip, marku, kategoriju, model
+• Prikaz detalja: Label sa informacijama
+• Dugme: "Vozni Park - OOP Demo" - otvara FormVozniPark
+
+FormVozniPark - Demonstracijska Forma:
+• ListBox: Prikaz svih vozila u parku
+• TextBox-ovi: Detalji izabranog vozila, statistika
+• Inputi: Polja za dodavanje novog vozila
+• Dugme: Ubrzaj (demonstracija EnginePart-a)
+• Dugme: Demo preopterećenja operatora
+• Dugme: Obriši vozilo
+
+═════════════════════════════════════════════════════════════════════════════
+
+REZIME POKRIVANJA ZAHTEVA
+═════════════════════════════════════════════════════════════════════════════
+
+✓ Kapslacija - Detaljno prikazana sa privatnim polјima i javnim svojstvima
+✓ Konstruktori/Destruktori - Implementirani sa brojanjem instanci
+✓ Svojstva - Properties sa validacijom i read-only svojstvima
+✓ Statičke/Objektne Metode - Mnogobrojna rešenja demonstrirana
+✓ Static/Const/Readonly - Sve vrste podataka korišćene
+✓ Preopterećenje Operatora - Osnovni i napredni operatori implementirani
+✓ Dedovanje - 5-nivoaska hijerarhija klasa
+✓ Sopstvene Klase (3+) - AutoVozilo, VozniParkManager, Model, itd.
+✓ GUI - Windows Forms sa dve forme za interakciju
+✓ Interfejsi - IPerformance, IEquatable implementirani
+
+═════════════════════════════════════════════════════════════════════════════
