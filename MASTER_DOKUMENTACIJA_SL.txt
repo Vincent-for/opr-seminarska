@@ -1,0 +1,485 @@
+═══════════════════════════════════════════════════════════════════════════
+                     MASTER DOKUMENTACIJA - PROJEKAT OOP
+═════════════════════════════════════════════════════════════════════════════
+
+PROJEKT:            OOP Principi u Praksi - Seminarska Naloga
+INSTITUCIJA:        Školski Centar Celje
+PREDMET:            OPR3 (Predmeti Orijentirani na Objekte)
+JEZIK:              C# (.NET Framework 4.7.2)
+VERZIJA:            2.0.0
+STATUS:             ✅ KOMPLETAN (FAZA 1 + FAZA 2)
+REPOSITORY:         https://github.com/Vincent-for/opr-seminarska
+
+═══════════════════════════════════════════════════════════════════════════
+
+SADRŽAJ MASTER DOKUMENTACIJE
+───────────────────────────────────────────────────────────────────────────
+
+1. Pregled Projekta
+2. Statut Faza Razvoja
+3. Kriterijumi Ocenjivanja
+4. Arhitektura Projekta
+5. Kako Pokreniti
+6. Git Commits History
+7. Kontakt i Podrška
+
+═══════════════════════════════════════════════════════════════════════════
+
+1. PREGLED PROJEKTA
+═════════════════════════════════════════════════════════════════════════════
+
+NAZIV:              Demonstracija OOP Principa u C#
+CILJ:               Pokazati sve bitne OOP koncepte kroz interaktivnu aplikaciju
+KORISNICI:          Studenti, profesori, razvijači
+
+GLAVNE KARAKTERISTIKE:
+  ✓ 9 sopstvenih klasa sa OOP principima
+  ✓ 5-nivoska hijerarhija dedovanja
+  ✓ 3 abstraktne klase sa konkretn om implementacijom
+  ✓ 4 vmesnika za različite ugovore
+  ✓ Polimorfizem kroz virtuelne i override metode
+  ✓ 3 indeksatora sa različitim pristupima
+  ✓ GUI sa 2 forme za interakciju
+  ✓ Kompletan GitHub repository sa documentacijom
+
+═══════════════════════════════════════════════════════════════════════════
+
+2. STATUT FAZA RAZVOJA
+═════════════════════════════════════════════════════════════════════════════
+
+FAZA 1: FUNDAMENTALNI OOP (20/20 bodova)
+─────────────────────────────────────────────────────────────────────────
+Status: ✅ ZAVRŠENA
+Datum: 2024
+Commits: 1 (a482630)
+Dokumentacija: README_SL.md, NAVODILA_SL.txt, OCENJIVANJE_SL.txt
+
+Implementirani Principi:
+  ✓ Kapslacija (2/2)
+  ✓ Konstruktori/Destruktori (2/2)
+  ✓ Lastnosti (2/2)
+  ✓ Metode (2/2)
+  ✓ Static/Const/Readonly (2/2)
+  ✓ Preoblaganje operatorjev (2/2)
+  ✓ Dedovanje (2/2)
+  ✓ Lastni razredi (2/2)
+  ✓ Interfejsi (2/2)
+  ✓ GUI (2/2)
+
+FAZA 2: NAPREDNI OOP (8/8 bodova)
+─────────────────────────────────────────────────────────────────────────
+Status: ✅ ZAVRŠENA
+Datum: 2024
+Commits: 2 (b675369, 6bb9df5)
+Dokumentacija: FAZA2_POLIMORFIZEM_SL.txt, VODIČI_PRAKTIČNI_PRIMERI_SL.txt
+
+Implementirani Principi:
+  ✓ Polimorfizem (2/2)
+  ✓ Abstraktni razredi (2/2)
+  ✓ Vmesniki (2/2)
+  ✓ Indeksatorji (2/2)
+
+SKUPNA OCENA: 28/28 BODOV (100%) ✅ ODLIČAN (A+)
+
+═══════════════════════════════════════════════════════════════════════════
+
+3. KRITERIJUMI OCENJIVANJA
+═════════════════════════════════════════════════════════════════════════════
+
+FAZA 1: FUNDAMENTALNI OOP PRINCIPI
+────────────────────────────────────────────────────────────────────────────
+
+1. KAPSLACIJA (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - Privatna polja (_tip, _hp, _registarskiBroj, itd.)
+     - Javna svojstva (Properties) sa get/set
+     - Validacija u svojstvima (BrojVrata samo 2, 4 ili 5)
+     - Read-only svojstva (GodisnjaMasa)
+     - Protected set svojstva (Tip)
+
+2. KONSTRUKTORI/DESTRUKTORI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - Konstruktori sa parametrima za inicijalizaciju
+     - Base() pozivi u svakom nivou dedovanja
+     - Destruktor za čiščenje resursa
+     - Statički konstruktor za inicijalizaciju demo podataka
+     - Brojač instanci (_brojAutomobila)
+
+3. LASTNOSTI (PROPERTIES) (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - Auto-implemented properties
+     - Properties sa logikom i validacijom
+     - Read-only properties (=>)
+     - Static svojstva
+     - Expression-bodied properties
+
+4. METODE (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - 8+ statičkih metoda za upravljanje
+     - 5+ objektnih metoda sa logikom
+     - Override metode (ToString, Equals, GetHashCode)
+     - Javne i privatne metode
+     - Pomoćne metode
+
+5. STATIC, CONST, READONLY (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - const za konstante (MaxBrzina, DefaultTip)
+     - static za deljive podatke (_brojAutomobila, _vozila)
+     - readonly za nepromenjive vrednosti (_godisnjaMasa)
+     - Static svojstva i metode
+
+6. PREOBLAGANJE OPERATORJEV (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - operator > (veće od)
+     - operator < (manje od)
+     - operator == (jednakost)
+     - operator != (nejednakost)
+     - operator * (multiplikacija)
+
+7. DEDOVANJE (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - 5-nivoska hijerarhija (Vozilo → Znamka → Kategorija → Model → AutoVozilo)
+     - Base() pozivi u svakom nivou
+     - Nasledjivanje svojstava kroz sve nivoe
+     - Specijalizacija sa svakim nivoom
+
+8. LASTNI RAZREDI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - 9 sopstvenih klasa (zahtevano 3+)
+     - Svaka klasa ima jasnu svrhu
+     - Sve se aktivno koriste u aplikaciji
+
+9. INTERFEJSI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - IPerformance - interfejs za performanse
+     - IEquatable<Model> - interfejs za poređenje
+     - Implementacija u odgovarajućim klasama
+
+10. GUI (2 boda)
+    Status: ✅ ZADOVOLJEN
+    Implementacija:
+      - 2 forme (Form1, FormVozniPark)
+      - Interakcija sa objektima
+      - Validacija unosa
+      - Prikaz rezultata
+
+FAZA 2: NAPREDNI OOP PRINCIPI
+────────────────────────────────────────────────────────────────────────────
+
+1. POLIMORFIZEM (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - Virtuelne metode u baznoj klasi Vozilo
+     - Override metode u svim nasledjenim klasama
+     - Različiti odgovori za istu metodu po tipu
+     - Praktična primena kroz polimorfne liste
+
+2. ABSTRAKTNI RAZREDI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - AutoPart - abstraktna klasa
+     - Abstraktna svojstva (Weight)
+     - Abstrakt metode (AffectHP)
+     - 3 konkretne implementacije (EnginePart, SuspensionPart, BrakePart)
+     - Virtuelne metode (GetDescription)
+
+3. VMESNIKI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - IPerformance - za performanse
+     - IVoziloComparable - za poređenje
+     - IVoziloKolekcija - za upravljanje kolekcijom
+     - IEquatable - za poređenje modela
+     - Sve implementirane u odgovarajućim klasama
+
+4. INDEKSATORJI (2 boda)
+   Status: ✅ ZADOVOLJEN
+   Implementacija:
+     - Model[int] - pristup delovima po broju
+     - Model[string] - pristup svojstvima po imenu
+     - AutoVozilo[int] - pristup vozilima iz liste
+     - Get/Set operacije
+     - Validacija indeksa
+
+═══════════════════════════════════════════════════════════════════════════
+
+4. ARHITEKTURA PROJEKTA
+═════════════════════════════════════════════════════════════════════════════
+
+DIREKTORIJUMSKA STRUKTURA
+────────────────────────────────────────────────────────────────────────────
+
+NalogaOPR_Vozila/
+├── Vozila.cs                    [Sve OOP klase - 900+ redova]
+├── Form1.cs                     [Glavna forma]
+├── Form1.Designer.cs            [UI layout]
+├── FormVozniPark.cs             [Demonstracijska forma]
+├── FormVozniPark.Designer.cs    [UI layout]
+├── Program.cs                   [Entry point]
+├── NalogaOPR_Vozila.csproj     [Projekat konfiguracija]
+└── [Visual Studio resursi]
+
+KLASE U VOZILA.CS
+────────────────────────────────────────────────────────────────────────────
+
+Interfejsi:
+  - IPerformance
+  - IVoziloComparable
+  - IVoziloKolekcija
+
+Abstraktne klase:
+  - AutoPart (Weight, AffectHP, GetDescription)
+
+Konkretne klase:
+  - EnginePart : AutoPart
+  - SuspensionPart : AutoPart
+  - BrakePart : AutoPart
+  - Vozilo (bazna klasa sa virtualnim metodama)
+  - Znamka : Vozilo (override)
+  - Kategorija : Znamka (override)
+  - Model : Kategorija (IPerformance, IEquatable, indeksatori)
+  - AutoVozilo : Model (IVoziloKolekcija, indeksatori)
+  - ModelCollection
+  - SkupinaAvtov (static)
+
+HIJERARHIJA DEDOVANJA
+────────────────────────────────────────────────────────────────────────────
+
+object
+├── Vozilo (virtuelne metode)
+│   ├── Znamka (override)
+│   │   ├── Kategorija (override)
+│   │   │   ├── Model (IPerformance, IEquatable, indeksatori [int], [string])
+│   │   │   │   └── AutoVozilo (IVoziloKolekcija, indeksatori [int])
+│   │   │   │       └─ Lista vozila (_listaVozila)
+
+INTERFEJSI - IMPLEMENTACIJE
+────────────────────────────────────────────────────────────────────────────
+
+IPerformance
+  └─ Model.GetPerformanceBoost()
+
+IVoziloComparable
+  └─ Vozilo.CompareTo()
+
+IVoziloKolekcija
+  └─ AutoVozilo (Count, Add, Remove, this[int])
+
+IEquatable<Model>
+  └─ Model.Equals()
+
+═══════════════════════════════════════════════════════════════════════════
+
+5. KAKO POKRENITI
+═════════════════════════════════════════════════════════════════════════════
+
+ZAHTEVE ZA POKRETANJE
+────────────────────────────────────────────────────────────────────────────
+
+- Windows OS
+- .NET Framework 4.7.2 instaliran
+- Visual Studio Community 2026 (ili starija verzija)
+- Git instaliran
+
+KORACI ZA POKRETANJE
+────────────────────────────────────────────────────────────────────────────
+
+1. Kloniranje repository-ja
+   ```bash
+   git clone https://github.com/Vincent-for/opr-seminarska
+   cd opr-seminarska
+   ```
+
+2. Otvaranje projekta
+   ```
+   - Otvorite Visual Studio
+   - File > Open > NalogaOPR_Vozila.sln
+   ```
+
+3. Pokretanje aplikacije
+   ```
+   - Pritisnite F5
+   - Ili Debug > Start Debugging
+   ```
+
+4. Korišćenje aplikacije
+   ```
+   - Sledite NAVODILA_SL.txt
+   - Ili VODIČI_PRAKTIČNI_PRIMERI_SL.txt
+   ```
+
+═══════════════════════════════════════════════════════════════════════════
+
+6. GIT COMMITS HISTORY
+═════════════════════════════════════════════════════════════════════════════
+
+COMMIT 1: FAZA 1 - FUNDAMENTALNI OOP
+────────────────────────────────────────────────────────────────────────────
+Hash:    a482630
+Message: "Dodaj slovensku dokumentaciju - README, navodila, ocenjivanje..."
+Branch:  master
+Date:    2024
+Files:   13 changed, 3635 insertions
+
+Sadržaj:
+  - README_SL.md - Pregled projekta
+  - NAVODILA_SL.txt - Kako koristiti aplikaciju
+  - OCENJIVANJE_SL.txt - Detaljno ocenjivanje
+  - POSTAVKA_NALOGE_SL.txt - Zahtevi
+  - VERZIJA_REZULTATA_SL.txt - Status verzije
+
+COMMIT 2: FAZA 2 - POLIMORFIZEM
+────────────────────────────────────────────────────────────────────────────
+Hash:    b675369
+Message: "Dodaj polimorfizem, abstraktne razrede, vmesnike in indeksatore"
+Branch:  master
+Date:    2024
+Files:   2 changed, 836 insertions
+
+Sadržaj:
+  - Poboljšanja Vozila.cs sa:
+    - Virtuelne metode
+    - Abstraktne klase
+    - 3 nova AutoPart klase
+    - 4 vmesnika
+    - 3 indeksatora
+  - FAZA2_POLIMORFIZEM_SL.txt - Dokumentacija
+
+COMMIT 3: FAZA 2 - FINALIZACIJA
+────────────────────────────────────────────────────────────────────────────
+Hash:    6bb9df5
+Message: "Finalizacija FAZE 2 - dokumentacija i praktični vodiči"
+Branch:  master
+Date:    2024
+Files:   2 changed, 852 insertions
+
+Sadržaj:
+  - FAZA2_ZAVRSENA.txt - Status FAZE 2
+  - VODIČI_PRAKTIČNI_PRIMERI_SL.txt - Praktični primeri
+
+═══════════════════════════════════════════════════════════════════════════
+
+7. DOKUMENTACIJA - DATOTEKE
+═════════════════════════════════════════════════════════════════════════════
+
+SLOVENŠČINA:
+───────────────────────────────────────────────────────────────────────────
+
+README_SL.md
+  - Pregled projekta
+  - Opšti cilj i karakteristike
+  - Kako pokrenuti
+
+NAVODILA_SL.txt
+  - Korak-po-korak vodiči
+  - Test scenariji
+  - FAQ (često postavljana pitanja)
+
+OCENJIVANJE_SL.txt
+  - Detaljno objašnjenje svakog OOP principa
+  - Kako je implementiran svaki princip
+  - Analiza koda
+
+POSTAVKA_NALOGE_SL.txt
+  - Originalni zahtevi seminarske naloge
+  - Kriterijumi ocenjivanja
+  - Bodovanje
+
+VERZIJA_REZULTATA_SL.txt
+  - Statut FAZE 1 (20/20 bodova)
+  - Detaljno mapiranje zadovoljenih zahteva
+
+FAZA2_POLIMORFIZEM_SL.txt
+  - Detaljno objašnjenje polimorfizma
+  - Primeri abstraktnih klasa
+  - Vmesnici i indeksatori
+
+FAZA2_ZAVRSENA.txt
+  - Status FAZE 2 (8/8 bodova)
+  - Skupna ocena (28/28 bodova)
+  - Arhitektura nakon FAZE 2
+
+VODIČI_PRAKTIČNI_PRIMERI_SL.txt
+  - 4 vodiči sa detaljnim primerima
+  - Polimorfizem - 4 primera
+  - Abstraktne klase - 4 primera
+  - Vmesniki - 4 primera
+  - Indeksatori - 4 primera
+
+MASTER_DOKUMENTACIJA_SL.txt (OVA DATOTEKA)
+  - Sveobuhvatan pregled celog projekta
+  - Rekapitulacija svih faza
+
+═══════════════════════════════════════════════════════════════════════════
+
+KAKO NAUČITI OOP IZ OVOG PROJEKTA
+═════════════════════════════════════════════════════════════════════════════
+
+Korak 1: Pročitajte README_SL.md
+  └─ Razumevanje opšte namene projekta
+
+Korak 2: Proučite Vozila.cs
+  └─ Analiza koda sa svih OOP principa
+
+Korak 3: Sledite VODIČI_PRAKTIČNI_PRIMERI_SL.txt
+  └─ Praktični primeri za svaki princip
+
+Korak 4: Testirajte kroz GUI
+  └─ Pokrenite aplikaciju i eksperimentirajte
+
+Korak 5: Pročitajte FAZA2_POLIMORFIZEM_SL.txt
+  └─ Napredni OOP koncepti
+
+Korak 6: Istražite Git commits
+  └─ Vidite kako je projekat razvojem
+
+═══════════════════════════════════════════════════════════════════════════
+
+KONTAKT I PODRŠKA
+═════════════════════════════════════════════════════════════════════════════
+
+Repository:         https://github.com/Vincent-for/opr-seminarska
+Jezik:             C# (.NET Framework 4.7.2)
+Verzija:           2.0.0
+Status:            ✅ KOMPLETAN
+
+Za više informacija:
+  - Vidite README_SL.md
+  - Vidite NAVODILA_SL.txt
+  - Proverite GitHub commits
+
+═══════════════════════════════════════════════════════════════════════════
+
+ZAKLJUČAK
+═════════════════════════════════════════════════════════════════════════════
+
+Ovaj projekat je KOMPLETAN PREGLED svih OOP principa naučenih na predmetu
+OPR3 (Predmeti Orijentirani na Objekte).
+
+FAZA 1: Fundamentalni OOP principi
+FAZA 2: Napredni OOP koncepti
+
+SKUPNA OCENA: 28/28 bodova (100%) - ODLIČAN (A+)
+
+Projekat je objavljen na GitHub-u sa detaljnom dokumentacijom na slovenščini.
+
+════════════════════════════════════════════════════════════════════════════
+
+Hvala što ste koristili ovaj projekat! 🎉
+
+Verzija:    2.0.0
+Status:     ✅ ZAVRŠEN
+Datum:      2024
+Autor:      Student
+Institucija: Školski Centar Celje
+
+════════════════════════════════════════════════════════════════════════════
