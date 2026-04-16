@@ -1,0 +1,511 @@
+═══════════════════════════════════════════════════════════════════════════
+         PRAKTIČNI VODIČI - KORIŠĆENJE OOP PRINCIPA FAZE 2
+═══════════════════════════════════════════════════════════════════════════
+
+VODIČI U OVOJ DATOTECI
+───────────────────────────────────────────────────────────────────────────
+
+1. Kako koristiti POLIMORFIZEM
+2. Kako koristiti ABSTRAKTNE KLASE
+3. Kako koristiti VMESNIKE
+4. Kako koristiti INDEKSATORE
+
+═══════════════════════════════════════════════════════════════════════════
+
+1. VODIČI: POLIMORFIZEM (POLYMORPHISM)
+═════════════════════════════════════════════════════════════════════════════
+
+ŠMaterial PROBLOM:
+Trebate da imate istu metodu koja se ponaša drugačije za različite tipove.
+
+REŠENJE: Polimorfizem preko virtuelnih metoda i override
+
+PRIMER 1: Osnovna upotreba Opis()
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Kreiram objekta različitih tipova
+Vozilo z = new Znamka("Avto", "BMW");
+Vozilo m = new Model("Avto", "BMW", "Sport", "M3", 473);
+Vozilo a = new AutoVozilo("Avto", "BMW", "Sport", "M3", 473, 
+                          "NIS-100", 4, 1200, 1500);
+
+// Pozivam istu metodu na svim objektima
+Console.WriteLine(z.Opis());
+// Izlaz: "Znamka: BMW, Tip: Avto"
+
+Console.WriteLine(m.Opis());
+// Izlaz: "Model: M3 | Znamka: BMW | Kategorija: Sport | HP: 473 | Delova: 0"
+
+Console.WriteLine(a.Opis());
+// Izlaz: "Auto: BMW M3 (NIS-100)
+//         Masa: 1500kg | Motor: 1200cc | Vrata: 4
+//         HP: 473"
+
+// POLIMORFIZEM! Ista metoda, različiti odgovori!
+```
+
+PRIMER 2: Virtuelna metoda CompareTo()
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Kreiram različita vozila
+Vozilo v1 = new Znamka("Avto", "BMW");
+Vozilo v2 = new Znamka("Avto", "Audi");
+
+Vozilo m1 = new Model("Avto", "BMW", "Sport", "M3", 473);
+Vozilo m2 = new Model("Avto", "BMW", "Sport", "M5", 560);
+
+// Poređenje - različito za svaki tip!
+
+// Znamka se poredi po imenu
+int rezultat1 = v1.CompareTo(v2);  // BMW vs Audi
+// Rezultat: negativan (BMW dolazi pre Audi alfabetski)
+
+// Model se poredi po HP
+int rezultat2 = m1.CompareTo(m2);  // 473 vs 560
+// Rezultat: negativan (473 < 560)
+
+// POLIMORFIZEM - CompareTo() radi drugačije!
+```
+
+PRIMER 3: Virtuelna metoda PrikaziKarakteristike()
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Kreiram listu različitih vozila
+List<Vozilo> vozila = new List<Vozilo>
+{
+    new Znamka("Avto", "BMW"),
+    new Kategorija("Avto", "BMW", "Sport"),
+    new Model("Avto", "BMW", "Sport", "M3", 473),
+    new AutoVozilo("Avto", "BMW", "Sport", "M3", 473, 
+                   "NIS-100", 4, 1200, 1500)
+};
+
+// Pozivam virtuelnu metodu na svim
+foreach (var vozilo in vozila)
+{
+    vozilo.PrikaziKarakteristike();
+    // Svaki tip prikazuje drugačije podatke!
+}
+
+// Ispis (u Debug Output):
+// Tip: Avto
+// Znamka: BMW, Tip: Avto
+// Kategorija: Sport, Znamka: BMW
+// AutoVozilo: BMW M3, Registar: NIS-100, Masa: 1500kg...
+```
+
+PRIMER 4: Polimorfna lista
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Kreira se lista baznog tipa Vozilo
+List<Vozilo> listaVozila = new List<Vozilo>();
+
+// Dodaj različite tipove - sve su Vozilo!
+listaVozila.Add(new Znamka("Avto", "BMW"));
+listaVozila.Add(new Kategorija("Avto", "BMW", "Sport"));
+listaVozila.Add(new Model("Avto", "BMW", "Sport", "M3", 473));
+listaVozila.Add(new AutoVozilo("Avto", "BMW", "Sport", "M3", 473, 
+                               "NIS-100", 4, 1200, 1500));
+
+// Procesiranje kroz polimorfizem
+foreach (var vozilo in listaVozila)
+{
+    string opis = vozilo.Opis();  // Različiti izlaz za svaki tip
+
+    // Ako trebam konkretni tip, mogu da koristim 'as'
+    if (vozilo is AutoVozilo auto)
+    {
+        Console.WriteLine($"Auto sa masom: {auto.GodisnjaMasa}kg");
+    }
+}
+```
+
+═══════════════════════════════════════════════════════════════════════════
+
+2. VODIČI: ABSTRAKTNE KLASE (ABSTRACT CLASSES)
+═════════════════════════════════════════════════════════════════════════════
+
+ŠATERIAL PROBLEM:
+AutoPart ne sme biti direktno instanciran - samo kroz konkretne klase.
+
+REŠENJE: Abstraktna klasa sa abstract svojstvima i metodama
+
+PRIMER 1: Osnovna upotreba AutoPart
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// GREŠKA - AutoPart je abstraktan!
+// AutoPart part = new AutoPart();  // CS0144: Cannot create instance
+
+// OK - mogu da kreiram samo konkretne klase
+AutoPart engine = new EnginePart(50);       // Engine
+AutoPart suspension = new SuspensionPart(15);  // Suspension
+AutoPart brake = new BrakePart(90);         // Brake
+
+// Svaki deo ima drugačitu implementaciju
+Console.WriteLine(engine.Weight);        // 150g
+Console.WriteLine(suspension.Weight);    // 200g
+Console.WriteLine(brake.Weight);         // 100g
+
+Console.WriteLine(engine.AffectHP());    // +50
+Console.WriteLine(suspension.AffectHP()); // 0
+Console.WriteLine(brake.AffectHP());     // -10
+```
+
+PRIMER 2: Virtuelna metoda GetDescription()
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+AutoPart engine = new EnginePart(50);
+AutoPart suspension = new SuspensionPart(15);
+AutoPart brake = new BrakePart(90);
+
+// Svaki deo ima drugačit opis
+Console.WriteLine(engine.GetDescription());
+// "Engine Part - Boost: +50 HP, Weight: 150g"
+
+Console.WriteLine(suspension.GetDescription());
+// "Suspension Part - Grip: +15%, Weight: 200g"
+
+Console.WriteLine(brake.GetDescription());
+// "Brake Part - Power: 90%, Weight: 100g"
+
+// VIRTUELNA METODA - različiti odgovori!
+```
+
+PRIMER 3: Polimorfna lista delova
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Lista delova - sve su AutoPart
+List<AutoPart> sviDelovi = new List<AutoPart>
+{
+    new EnginePart(50),
+    new SuspensionPart(15),
+    new BrakePart(90),
+    new EnginePart(100)
+};
+
+// Procesiranje svog dela
+foreach (var deo in sviDelovi)
+{
+    // Weight - različit za svaki tip
+    Console.WriteLine($"Težina: {deo.Weight}g");
+
+    // GetDescription - različit tekst
+    Console.WriteLine(deo.GetDescription());
+
+    // Ako trebam konkretni tip
+    if (deo is EnginePart engine)
+    {
+        Console.WriteLine($"Engine boost: +{engine.Weight} HP");
+    }
+}
+```
+
+PRIMER 4: Primena delova na automobil
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+Model model = new Model("Avto", "BMW", "Sport", "M3", 473);
+Console.WriteLine($"Početni HP: {model.HP}");
+
+// Dodaj različite delove
+model.ApplyPart(new EnginePart(50));        // +50 HP
+model.ApplyPart(new SuspensionPart(15));    // 0 HP
+model.ApplyPart(new BrakePart(90));         // -10 HP
+
+Console.WriteLine($"Finalni HP: {model.HP}");  // 473 + 50 + 0 - 10 = 513
+
+// Prikaži sve delove
+Console.WriteLine("Instalirani delovi:");
+for (int i = 0; i < model.BrojDelova; i++)
+{
+    Console.WriteLine($"  {model[i].GetDescription()}");
+}
+```
+
+═══════════════════════════════════════════════════════════════════════════
+
+3. VODIČI: VMESNIKI (INTERFACES)
+═════════════════════════════════════════════════════════════════════════════
+
+ŠATERIAL PROBLEM:
+Trebate da garantujete da klasa implementira određene metode.
+
+REŠENJE: Interfejsi kao ugovori
+
+PRIMER 1: IPerformance interfejs
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Model implementira IPerformance
+Model model = new Model("Avto", "BMW", "Sport", "M3", 473);
+
+// Mogu pristupiti kroz interfejs
+IPerformance perf = model;
+int boost = perf.GetPerformanceBoost();
+// Rezultat: 473 (HP)
+
+// Sa delovima, rezultat je drugačit
+model.ApplyPart(new EnginePart(50));
+boost = perf.GetPerformanceBoost();
+// Rezultat: 473 + 50 + Weight delova
+
+Console.WriteLine($"Performance boost: {boost}");
+```
+
+PRIMER 2: IVoziloKolekcija interfejs
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// AutoVozilo implementira IVoziloKolekcija
+AutoVozilo auto = new AutoVozilo("Avto", "BMW", "Sport", "M3", 473,
+                                "NIS-100", 4, 1200, 1500);
+
+// Koristim interfejs
+IVoziloKolekcija kolekcija = auto;
+
+// Dodaj vozila
+kolekcija.Add(new Vozilo("Avto"));
+kolekcija.Add(new Znamka("Avto", "BMW"));
+kolekcija.Add(new Model("Avto", "BMW", "Sport", "M3", 473));
+
+Console.WriteLine($"Broj vozila: {kolekcija.Count}");  // 3
+
+// Pristupim vozilima kroz interfejs
+Vozilo v = kolekcija[0];
+Console.WriteLine(v.Opis());
+```
+
+PRIMER 3: IVoziloComparable interfejs
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+// Vozilo implementira IVoziloComparable
+List<Vozilo> vozila = new List<Vozilo>
+{
+    new Znamka("Avto", "Volkswagen"),
+    new Znamka("Avto", "BMW"),
+    new Znamka("Avto", "Audi")
+};
+
+// Sortiranje koristi interfejs
+vozila.Sort((a, b) => a.CompareTo(b));
+
+// Ispisivanje - već sortiran
+foreach (var vozilo in vozila)
+{
+    Console.WriteLine(vozilo.Opis());
+}
+// Audi
+// BMW
+// Volkswagen
+```
+
+PRIMER 4: IEquatable<Model> interfejs
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+Model m1 = new Model("Avto", "BMW", "Sport", "M3", 473);
+Model m2 = new Model("Avto", "BMW", "Sport", "M3", 500);
+Model m3 = new Model("Avto", "BMW", "Sport", "M3", 473);
+
+// Poređenje kroz interfejs
+bool jednaki1 = m1.Equals(m2);  // false (različiti HP)
+bool jednaki2 = m1.Equals(m3);  // true (istaImeModela)
+
+Console.WriteLine($"m1 == m3: {m1 == m3}");  // true
+Console.WriteLine($"m1 == m2: {m1 == m2}");  // false
+```
+
+═══════════════════════════════════════════════════════════════════════════
+
+4. VODIČI: INDEKSATORI (INDEXERS)
+═════════════════════════════════════════════════════════════════════════════
+
+ŠATERIAL PROBLEM:
+Trebate da pristupim obiektima kao da su nizovi kroz [] operator.
+
+REŠENJE: Indeksatori
+
+PRIMER 1: Model[int] - pristup delovima po broju
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+Model model = new Model("Avto", "BMW", "Sport", "M3", 473);
+
+// Dodaj nekoliko delova
+model.ApplyPart(new EnginePart(50));
+model.ApplyPart(new SuspensionPart(15));
+model.ApplyPart(new BrakePart(90));
+
+// Pristupam delovima kroz indeksator [int]
+AutoPart del1 = model[0];  // EnginePart
+AutoPart del2 = model[1];  // SuspensionPart
+AutoPart del3 = model[2];  // BrakePart
+
+Console.WriteLine(del1.GetDescription());
+Console.WriteLine(del2.GetDescription());
+Console.WriteLine(del3.GetDescription());
+
+// Mogu da zamenim deo
+model[0] = new EnginePart(100);  // Novi motor sa većim boost-om
+
+// Greška pri pristupanju van granica
+try
+{
+    AutoPart invalid = model[10];  // IndexOutOfRangeException
+}
+catch (IndexOutOfRangeException ex)
+{
+    Console.WriteLine($"Greška: {ex.Message}");
+}
+```
+
+PRIMER 2: Model[string] - pristup svojstvima po imenu
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+Model model = new Model("Avto", "BMW", "Sport", "M3", 473);
+
+// Pristupam svojstvima kao stringovima kroz indeksator
+string imeModela = model["imemodela"];   // "M3"
+string imeZnamke = model["imeznamke"];   // "BMW"
+string hp = model["hp"];                 // "473"
+string tip = model["tip"];               // "Avto"
+
+Console.WriteLine($"Model: {imeModela}");
+Console.WriteLine($"Znamka: {imeZnamke}");
+Console.WriteLine($"HP: {hp}");
+Console.WriteLine($"Tip: {tip}");
+
+// Greška pri nepoznatom svojstvu
+try
+{
+    string unknown = model["necega"];  // ArgumentException
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Greška: {ex.Message}");
+}
+```
+
+PRIMER 3: AutoVozilo[int] - pristup vozilima iz kolekcije
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+AutoVozilo auto = new AutoVozilo("Avto", "BMW", "Sport", "M3", 473,
+                                "NIS-100", 4, 1200, 1500);
+
+// Dodaj vozila u kolekciju
+auto.Add(new Vozilo("Avto"));
+auto.Add(new Znamka("Avto", "BMW"));
+auto.Add(new Model("Avto", "BMW", "Sport", "M3", 473));
+
+// Pristupam vozilima kroz indeksator [int]
+Vozilo v1 = auto[0];  // Vozilo
+Vozilo v2 = auto[1];  // Znamka
+Vozilo v3 = auto[2];  // Model
+
+Console.WriteLine(v1.Opis());
+Console.WriteLine(v2.Opis());
+Console.WriteLine(v3.Opis());
+
+// Mogu da zamenim vozilo
+auto[1] = new Kategorija("Avto", "Audi", "Sport");
+
+// Iteracija kroz sve vozila
+for (int i = 0; i < auto.Count; i++)
+{
+    Console.WriteLine($"Vozilo {i}: {auto[i].Opis()}");
+}
+```
+
+PRIMER 4: Kombinovana upotreba indeksatora
+─────────────────────────────────────────────────────────────────────────────
+
+```csharp
+Model model = new Model("Avto", "BMW", "Sport", "M3", 473);
+
+// Dodaj delove
+for (int i = 0; i < 3; i++)
+{
+    model.ApplyPart(new EnginePart(30));
+}
+
+// Pristupam svim delovima i njihovim opisima
+Console.WriteLine("Installirani delovi:");
+for (int i = 0; i < model.BrojDelova; i++)
+{
+    AutoPart del = model[i];  // Indeksator [int]
+    Console.WriteLine($"  Deo {i}: {del.GetDescription()}");
+    Console.WriteLine($"  Težina: {del.Weight}g");
+    Console.WriteLine($"  HP efekt: {del.AffectHP(model)}");
+}
+
+// Pristupam svojstvima
+Console.WriteLine($"\nModel: {model["imemodela"]}");
+Console.WriteLine($"Znamka: {model["imeznamke"]}");
+Console.WriteLine($"HP: {model["hp"]}");
+```
+
+═══════════════════════════════════════════════════════════════════════════
+
+KOMBINOVANA PRIMENA - SVI OOP PRINCIPI
+═════════════════════════════════════════════════════════════════════════════
+
+```csharp
+// POLIMORFIZEM + ABSTRAKTNE KLASE + VMESNIKI + INDEKSATORI
+
+// Kreiram automobil
+AutoVozilo auto = new AutoVozilo("Avto", "BMW", "Sport", "M3", 473,
+                                "NIS-100", 4, 1200, 1500);
+
+// ABSTRAKTNE KLASE - različiti delovi
+List<AutoPart> dijelovi = new List<AutoPart>
+{
+    new EnginePart(100),
+    new SuspensionPart(20),
+    new BrakePart(90)
+};
+
+// Primeni sve delove
+foreach (var deo in dijelovi)
+{
+    Model model = auto as Model;
+    if (model != null)
+    {
+        model.ApplyPart(deo);  // POLIMORFIZEM
+    }
+}
+
+// INDEKSATORI - pristup delovima
+Console.WriteLine("Delovi na automobilu:");
+Model m = auto as Model;
+for (int i = 0; i < m.BrojDelova; i++)
+{
+    Console.WriteLine($"  {m[i].GetDescription()}");
+}
+
+// VMESNIKI - interfejs IPerformance
+IPerformance perf = auto;
+Console.WriteLine($"Performance: {perf.GetPerformanceBoost()}");
+
+// VMESNIKI - interfejs IVoziloKolekcija
+IVoziloKolekcija kol = auto;
+kol.Add(new Vozilo("Avto"));
+Console.WriteLine($"Vozila u listi: {kol.Count}");
+
+// INDEKSATORI - pristup svojstvima
+Console.WriteLine($"Model: {auto["imemodela"]}");
+Console.WriteLine($"HP: {auto["hp"]}");
+```
+
+═══════════════════════════════════════════════════════════════════════════
+
+Hvala što ste pročitali vodiče! 🎉
