@@ -37,7 +37,7 @@ namespace NalogaOPR_Vozila
         /// <summary>Virtualna metoda - može biti override-ovana</summary>
         public virtual string GetDescription()
         {
-            return $"Auto Part - Weight: {Weight}";
+            return $"Deo vozila - Masa: {Weight}g";
         }
     }
 
@@ -64,7 +64,7 @@ namespace NalogaOPR_Vozila
         /// <summary>Override virtualne metode iz bazne klase</summary>
         public override string GetDescription()
         {
-            return $"Engine Part - Boost: +{_boost} HP, Weight: {Weight}g";
+            return $"Motorni deo - Pojačanje: +{_boost} KS, Masa: {Weight}g";
         }
     }
 
@@ -91,7 +91,7 @@ namespace NalogaOPR_Vozila
         /// <summary>Polimorfna virtuelna metoda</summary>
         public override string GetDescription()
         {
-            return $"Suspension Part - Grip: +{_gripBoost}%, Weight: {Weight}g";
+            return $"Suspenzijski deo - Prianjenje: +{_gripBoost}%, Masa: {Weight}g";
         }
     }
 
@@ -118,7 +118,7 @@ namespace NalogaOPR_Vozila
         /// <summary>Polimorfna virtuelna metoda</summary>
         public override string GetDescription()
         {
-            return $"Brake Part - Power: {_brakePower}%, Weight: {Weight}g";
+            return $"Brejk deo - Moć: {_brakePower}%, Masa: {Weight}g";
         }
     }
 
