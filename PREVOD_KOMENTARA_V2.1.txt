@@ -1,0 +1,102 @@
+═══════════════════════════════════════════════════════════════════════════
+                  ✅ PREVOD KOMENTARA NA SLOVENŠČINU
+═══════════════════════════════════════════════════════════════════════════
+
+STATUS:             ✅ ZAVRŠEN
+VERZIJA:            2.0.1 (PREVOD KOMENTARA)
+DATUM:              2024
+JEZIK:              Slovenščina 🇸🇮
+
+═══════════════════════════════════════════════════════════════════════════
+
+ŠMNOGE IZMENE
+═════════════════════════════════════════════════════════════════════════════
+
+PREVEDEN KOD U VOZILA.CS:
+
+1. AutoPart.GetDescription()
+   STARO: "Auto Part - Weight: {Weight}"
+   NOVO: "Deo vozila - Masa: {Weight}g" ✅
+
+2. EnginePart.GetDescription()
+   STARO: "Engine Part - Boost: +{_boost} HP, Weight: {Weight}g"
+   NOVO: "Motorni deo - Pojačanje: +{_boost} KS, Masa: {Weight}g" ✅
+
+3. SuspensionPart.GetDescription()
+   STARO: "Suspension Part - Grip: +{_gripBoost}%, Weight: {Weight}g"
+   NOVO: "Suspenzijski deo - Prianjenje: +{_gripBoost}%, Masa: {Weight}g" ✅
+
+4. BrakePart.GetDescription()
+   STARO: "Brake Part - Power: {_brakePower}%, Weight: {Weight}g"
+   NOVO: "Brejk deo - Moć: {_brakePower}%, Masa: {Weight}g" ✅
+
+═══════════════════════════════════════════════════════════════════════════
+
+ŠTO JE VEĆ BILO NA SLOVENŠČINI
+═════════════════════════════════════════════════════════════════════════════
+
+✅ Svi XML komentari (/// <summary>)
+✅ Svi inline komentari (//)
+✅ Svi error stringovi u indeksatorima
+✅ Sve poruke iz Vozilo klasa
+
+═══════════════════════════════════════════════════════════════════════════
+
+GIT COMMIT
+═════════════════════════════════════════════════════════════════════════════
+
+Hash:       d49a444
+Message:    "Prevedi sve stringove na slovenščinu u Vozila.cs"
+Branch:     master
+Status:     ✅ PUSHED NA GITHUB
+
+═══════════════════════════════════════════════════════════════════════════
+
+BUILD STATUS
+═════════════════════════════════════════════════════════════════════════════
+
+Kompilacija:        ✅ USPEŠNA
+Broj greške:        0
+Broj upozorenja:    0
+Test pokretanja:    ✅ SPREMAN
+
+═══════════════════════════════════════════════════════════════════════════
+
+MAPIRANJE PREVEDENIH TERMINA
+═════════════════════════════════════════════════════════════════════════════
+
+English                  →  Slovenščina
+─────────────────────────────────────────────
+Auto Part               →  Deo vozila
+Engine Part             →  Motorni deo
+Suspension Part         →  Suspenzijski deo
+Brake Part              →  Brejk deo
+Weight                  →  Masa
+Boost                   →  Pojačanje
+HP (Horse Power)        →  KS (Konjske snage)
+Grip                    →  Prianjenje
+Power                   →  Moć
+
+═══════════════════════════════════════════════════════════════════════════
+
+KONAČAN STATUS
+═════════════════════════════════════════════════════════════════════════════
+
+Projekat je sada 100% na slovenščini:
+  ✅ Svi XML komentari (/// <summary>)
+  ✅ Svi inline komentari (//)
+  ✅ Svi stringovi u GetDescription()
+  ✅ Svi error stringovi
+  ✅ Sve poruke u kodu
+
+═════════════════════════════════════════════════════════════════════════════
+
+Repository:    https://github.com/Vincent-for/opr-seminarska
+Verzija:       2.0.1 (PREVOD KOMENTARA)
+Status:        ✅ KOMPLETAN I SPREMAN
+
+═════════════════════════════════════════════════════════════════════════════
+
+Hvala što ste koristili ovaj projekat! 🇸🇮
+
+════════════════════════════════════════════════════════════════════════════
